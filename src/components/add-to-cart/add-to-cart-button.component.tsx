@@ -1,7 +1,7 @@
 import { CustomAddToCartButton } from './add-to-cart.styles';
 
 export const AddToCartButton = () => {
-    const addToCartHandler = e => {
+    const addToCartHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         console.log('added to cart');
     };

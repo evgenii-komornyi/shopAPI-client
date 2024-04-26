@@ -1,19 +1,17 @@
 import { Skeleton } from '@mui/material';
-import { Image, ImageDetailsContainer } from './image-details.styles';
+
 import useFishStore from '../../stores/useFish.store';
 
-const { VITE_HOST_URL, VITE_HOST_PORT, VITE_IMAGES_URL, VITE_FISH_IMAGES_URL } =
-    import.meta.env;
+import { Image, ImageDetailsContainer } from './image-details.styles';
 
-interface IFile {
-    id: number;
-    fileName: string;
-}
-
+import { IFile } from '../../interfaces/IFile.interface';
 interface IProps {
     files: IFile[];
     fishType: string;
 }
+
+const { VITE_HOST_URL, VITE_HOST_PORT, VITE_IMAGES_URL, VITE_FISH_IMAGES_URL } =
+    import.meta.env;
 
 export const ImageDetails = (props: IProps) => {
     const isLoaded = useFishStore(state => state.isFishByIdLoaded);

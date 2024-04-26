@@ -1,8 +1,11 @@
-import { Container } from '@mui/material';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import useFishStore from '../stores/useFish.store';
+
+import { Container } from '@mui/material';
+
 import { FishDetails } from '../components/fish-details/fish-details.component';
+
+import useFishStore from '../stores/useFish.store';
 
 export const FishDetailsPage = () => {
     const { fishId } = useParams();

@@ -1,4 +1,6 @@
-import { Button, styled } from '@mui/material';
+import { Button } from '@mui/material';
+
+import { styled } from '@mui/material/styles';
 
 export const AddToCartContainer = styled('div')({
     display: 'flex',

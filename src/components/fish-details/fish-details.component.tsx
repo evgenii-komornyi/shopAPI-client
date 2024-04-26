@@ -1,10 +1,12 @@
 import { Grid } from '@mui/material';
-import useFishStore from '../../stores/useFish.store';
+
 import { ImageDetails } from '../image-details/image-details.component';
 import { DetailsInfo } from './details-info.component';
 
+import useFishStore from '../../stores/useFish.store';
+
 export const FishDetails = () => {
-    const { singleFish: fish } = useFishStore(state => state);
+    const fish = useFishStore(state => state.singleFish);
 
     const { files, type } = fish;
 

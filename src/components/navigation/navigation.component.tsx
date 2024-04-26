@@ -8,11 +8,14 @@ import {
     Toolbar,
     Typography,
 } from '@mui/material';
-import { SetMealTwoTone, Menu as MenuIcon } from '@mui/icons-material';
-import { useAnchor } from '../../hooks/useAnchor.hook';
-import { menuItems } from '../../data/menu';
-import { CartIcon } from '../cart/cart-icon.component';
 import { Link, useNavigate } from 'react-router-dom';
+import { SetMealTwoTone, Menu as MenuIcon } from '@mui/icons-material';
+import { CartIcon } from '../cart/cart-icon.component';
+
+import { menuItems } from '../../data/menu';
+
+import { useAnchor } from '../../hooks/useAnchor.hook';
+
 import { StyledNavLink } from './navigation.styles';
 
 export const Navigation = () => {

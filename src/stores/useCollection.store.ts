@@ -3,6 +3,15 @@ import { devtools } from 'zustand/middleware';
 
 import { getCollection } from '../api/collection.api';
 
+import { IType } from '../interfaces/IType.interface';
+
+interface ITypeState {
+    collection: IType[];
+    isLoaded: boolean;
+
+    getAllCollection: () => void;
+}
+
 const collectionStore = set => ({
     collection: [],
     isLoaded: false,
@@ -21,6 +30,6 @@ const collectionStore = set => ({
     },
 });
 
-const useCollectionStore = create(devtools(collectionStore));
+const useCollectionStore = create<ITypeState>()(devtools(collectionStore));
 
 export default useCollectionStore;

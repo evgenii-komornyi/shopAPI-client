@@ -1,5 +1,6 @@
-import { styled } from '@mui/material/styles';
 import { NavLink } from 'react-router-dom';
+
+import { styled } from '@mui/material/styles';
 
 export const StyledNavLink = styled(NavLink)({
     marginRight: '20px',

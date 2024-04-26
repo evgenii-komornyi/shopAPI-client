@@ -2,10 +2,11 @@ import { Grid, Skeleton, Typography } from '@mui/material';
 import { FishItem } from './fish-item.component';
 
 import useFishStore from '../../stores/useFish.store';
-import IFishItem from './IFishItem.interface';
+
+import { IFish } from '../../interfaces/IFish.interface';
 
 export const FishCollection = () => {
-    const fish: IFishItem[] = useFishStore(state => state.fish);
+    const fish: IFish[] = useFishStore(state => state.fish);
     const isLoaded = useFishStore(state => state.isFishByTypeLoaded);
 
     return (
@@ -16,7 +17,7 @@ export const FishCollection = () => {
                         variant="h3"
                         sx={{ textAlign: 'center', letterSpacing: 8 }}
                     >
-                        {fish[0].typeName.toUpperCase()}
+                        {fish[0]?.typeName?.toUpperCase()}
                     </Typography>
                 ) : (
                     <Skeleton
@@ -30,7 +31,7 @@ export const FishCollection = () => {
             <Grid item xs={12}>
                 {isLoaded ? (
                     <Typography variant="body1" sx={{ textIndent: 50, mb: 2 }}>
-                        {fish[0].typeDescription}
+                        {fish[0]?.typeDescription}
                     </Typography>
                 ) : (
                     <Skeleton

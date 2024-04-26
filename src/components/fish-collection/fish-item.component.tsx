@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import {
     Card,
     CardContent,
@@ -6,6 +5,12 @@ import {
     Skeleton,
     Typography,
 } from '@mui/material';
+import { Link } from 'react-router-dom';
+
+import { AddToCartButton } from '../add-to-cart/add-to-cart-button.component';
+
+import useFishStore from '../../stores/useFish.store';
+
 import {
     ActualPrice,
     ControlContainer,
@@ -15,39 +20,17 @@ import {
     PriceContainer,
     RegularPrice,
 } from './fish-collection.styles';
-import { AddToCartButton } from '../add-to-cart/add-to-cart-button.component';
-import useFishStore from '../../stores/useFish.store';
 
-enum SexEnum {
-    'male',
-    'female',
-}
-
-interface IFishItem {
-    actualPrice: number;
-    description: string;
-    discount: number;
-    fishId: number;
-    fishName: string;
-    fileName: string;
-    isAvailable: boolean;
-    isInStock: boolean;
-    regularPrice: number;
-    sex: SexEnum;
-    typeDescription: string;
-    typeId: number;
-    typeName: string;
-}
-
-interface Item {
-    fishItem: IFishItem;
+import { IFish } from '../../interfaces/IFish.interface';
+interface IProps {
+    fishItem: IFish;
 }
 
 const { VITE_HOST_URL, VITE_HOST_PORT, VITE_IMAGES_URL, VITE_FISH_IMAGES_URL } =
     import.meta.env;
 
-export const FishItem = ({
-    fishItem: {
+export const FishItem = (props: IProps) => {
+    const {
         fishId,
         fishName,
         fileName,
@@ -55,8 +38,7 @@ export const FishItem = ({
         regularPrice,
         actualPrice,
         isInStock,
-    },
-}: Item) => {
+    } = props.fishItem;
     const isLoaded = useFishStore(state => state.isFishByTypeLoaded);
 
     return isLoaded ? (

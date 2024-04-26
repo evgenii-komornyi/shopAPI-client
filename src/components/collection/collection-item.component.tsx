@@ -5,15 +5,11 @@ import {
     Skeleton,
     Typography,
 } from '@mui/material';
-import { ItemContainer } from './collection.styles';
-
-import ICollection from './ICollection.interface';
 import { Link } from 'react-router-dom';
+
 import useCollectionStore from '../../stores/useCollection.store';
 
-interface Item {
-    item: ICollection;
-}
+import { ItemContainer } from './collection.styles';
 
 const {
     VITE_HOST_URL,
@@ -22,7 +18,14 @@ const {
     VITE_COLLECTION_IMAGES_URL,
 } = import.meta.env;
 
-export const CollectionItem = ({ item: { typeName, fileName } }: Item) => {
+import { IType } from '../../interfaces/IType.interface';
+interface IProps {
+    item: IType;
+}
+
+export const CollectionItem = (props: IProps) => {
+    const { typeName, fileName } = props.item;
+
     const { isLoaded } = useCollectionStore(state => state);
 
     return isLoaded ? (

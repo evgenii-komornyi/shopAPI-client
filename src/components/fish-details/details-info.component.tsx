@@ -1,5 +1,9 @@
 import { Skeleton, Typography } from '@mui/material';
+
 import { AddToCart } from '../add-to-cart/add-to-cart.component';
+
+import useFishStore from '../../stores/useFish.store';
+
 import {
     ActualPrice,
     AdditionalInfoContainer,
@@ -11,19 +15,8 @@ import {
     RegularPrice,
     SavePrice,
 } from './fish-details.styles';
-import useFishStore from '../../stores/useFish.store';
 
-interface IFish {
-    fishId: number;
-    fishName: string;
-    sex: string;
-    regularPrice: number;
-    discount: number;
-    actualPrice: number;
-    isInStock: boolean;
-    description: string;
-}
-
+import { IFish } from '../../interfaces/IFish.interface';
 interface IProps {
     fish: IFish;
 }
@@ -45,7 +38,11 @@ export const DetailsInfo = (props: IProps) => {
             <MainInfoContainer>
                 {isLoaded ? (
                     <Typography variant="h4" sx={{ letterSpacing: 3 }}>
-                        {fishName} ({sex.toUpperCase()})
+                        {fishName} (
+                        <span style={{ textTransform: 'uppercase' }}>
+                            {sex}
+                        </span>
+                        )
                     </Typography>
                 ) : (
                     <Skeleton

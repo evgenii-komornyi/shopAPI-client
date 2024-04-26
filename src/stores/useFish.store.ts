@@ -4,6 +4,18 @@ import { devtools } from 'zustand/middleware';
 import { getFishByType } from '../api/collection.api';
 import { getFishById } from '../api/fish.api';
 
+import { IFish } from '../interfaces/IFish.interface';
+
+interface IFishState {
+    fish: IFish[];
+    singleFish: IFish;
+    isFishByTypeLoaded: boolean;
+    isFishByIdLoaded: boolean;
+
+    fetchFishByType: (typeName: string) => void;
+    fetchFishById: (fishId: number) => void;
+}
+
 const fishStore = set => ({
     fish: [],
     singleFish: {},
@@ -37,6 +49,6 @@ const fishStore = set => ({
     },
 });
 
-const useFishStore = create(devtools(fishStore));
+const useFishStore = create<IFishState>()(devtools(fishStore));
 
 export default useFishStore;

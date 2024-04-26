@@ -3,17 +3,10 @@ import { CollectionItem } from './collection-item.component';
 
 import useCollectionStore from '../../stores/useCollection.store';
 
-interface ICollection {
-    typeId: number;
-    typeName: string;
-    fileName: string;
-    typeDescription: string | undefined;
-}
+import { IType } from '../../interfaces/IType.interface';
 
 export const Collection = () => {
-    const collection: ICollection[] = useCollectionStore(
-        state => state.collection
-    );
+    const collection: IType[] = useCollectionStore(state => state.collection);
 
     return (
         <Grid container spacing={2} sx={{ mt: 4 }}>
