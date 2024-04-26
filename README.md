@@ -1,1 +1,0 @@
-# shopAPI-client
