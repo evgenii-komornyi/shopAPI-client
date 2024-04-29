@@ -23,9 +23,7 @@ interface IProps {
     item: IType;
 }
 
-export const CollectionItem = (props: IProps) => {
-    const { typeName, fileName } = props.item;
-
+export const CollectionItem = ({ item: { typeName, fileName } }: IProps) => {
     const { isLoaded } = useCollectionStore(state => state);
 
     return isLoaded ? (

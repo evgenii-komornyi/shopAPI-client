@@ -1,13 +1,13 @@
 import { Grid, Skeleton, Typography } from '@mui/material';
-import { FishItem } from './fish-item.component';
+import { Item } from './item.component';
 
-import useFishStore from '../../stores/useFish.store';
+import useItemsStore from '../../stores/useItems.store';
 
-import { IFish } from '../../interfaces/IFish.interface';
+import { IItem } from '../../interfaces/IItem.interface';
 
-export const FishCollection = () => {
-    const fish: IFish[] = useFishStore(state => state.fish);
-    const isLoaded = useFishStore(state => state.isFishByTypeLoaded);
+export const ItemsCollection = () => {
+    const items: IItem[] = useItemsStore(state => state.items);
+    const isLoaded = useItemsStore(state => state.isItemsByTypeLoaded);
 
     return (
         <Grid container spacing={2} sx={{ mt: 4 }}>
@@ -17,7 +17,7 @@ export const FishCollection = () => {
                         variant="h3"
                         sx={{ textAlign: 'center', letterSpacing: 8 }}
                     >
-                        {fish[0]?.typeName?.toUpperCase()}
+                        {items[0]?.typeName?.toUpperCase()}
                     </Typography>
                 ) : (
                     <Skeleton
@@ -31,7 +31,7 @@ export const FishCollection = () => {
             <Grid item xs={12}>
                 {isLoaded ? (
                     <Typography variant="body1" sx={{ textIndent: 50, mb: 2 }}>
-                        {fish[0]?.typeDescription}
+                        {items[0]?.typeDescription}
                     </Typography>
                 ) : (
                     <Skeleton
@@ -42,18 +42,18 @@ export const FishCollection = () => {
                     />
                 )}
             </Grid>
-            {fish
+            {items
                 .filter(item => item.isAvailable)
-                .map(fishItem => (
+                .map(item => (
                     <Grid
-                        key={fishItem.fishId}
+                        key={item.itemId}
                         item
                         xs={12}
                         sm={12}
                         md={4}
                         textAlign="center"
                     >
-                        <FishItem fishItem={fishItem} />
+                        <Item item={item} />
                     </Grid>
                 ))}
         </Grid>

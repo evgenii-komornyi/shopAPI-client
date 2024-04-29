@@ -9,7 +9,7 @@ export const getCollection = () =>
         signal: newAbortSignal(5000),
     });
 
-export const getFishByType = (typeName: string) =>
+export const getItemsByType = (typeName: string) =>
     axios.get(
         `${VITE_HOST_URL}:${VITE_HOST_PORT}/${VITE_COLLECTION_API_URL}/${typeName}`,
         {

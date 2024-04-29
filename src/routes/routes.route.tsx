@@ -5,7 +5,8 @@ import { AboutUsPage } from '../pages/about-us.page';
 import { ContactsPage } from '../pages/contacts.page';
 import { CollectionListPage } from '../pages/collection-list.page';
 import { CollectionDetailsPage } from '../pages/collection-details.page';
-import { FishDetailsPage } from '../pages/fish-details.page';
+import { ItemDetailsPage } from '../pages/item-details.page';
+import { CheckoutPage } from '../pages/checkout.page';
 
 const routes = [
     { path: '/', page: <MainPage /> },
@@ -13,7 +14,8 @@ const routes = [
     { path: '/about-us', page: <AboutUsPage /> },
     { path: '/contacts', page: <ContactsPage /> },
     { path: '/collection/:typeName', page: <CollectionDetailsPage /> },
-    { path: '/collection/:typeName/fish/:fishId', page: <FishDetailsPage /> },
+    { path: '/collection/:typeName/item/:itemId', page: <ItemDetailsPage /> },
+    { path: '/checkout/:clientId', page: <CheckoutPage /> },
 ];
 
 export const MainRoutes = () => {

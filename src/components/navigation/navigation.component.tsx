@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import { SetMealTwoTone, Menu as MenuIcon } from '@mui/icons-material';
-import { CartIcon } from '../cart/cart-icon.component';
+import { CartIcon } from '../cart-icon/cart-icon.component';
 
 import { menuItems } from '../../data/menu';
 

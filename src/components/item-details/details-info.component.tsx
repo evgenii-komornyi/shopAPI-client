@@ -2,7 +2,7 @@ import { Skeleton, Typography } from '@mui/material';
 
 import { AddToCart } from '../add-to-cart/add-to-cart.component';
 
-import useFishStore from '../../stores/useFish.store';
+import useItemsStore from '../../stores/useItems.store';
 
 import {
     ActualPrice,
@@ -14,31 +14,34 @@ import {
     PriceContainer,
     RegularPrice,
     SavePrice,
-} from './fish-details.styles';
+} from './item-details.styles';
 
-import { IFish } from '../../interfaces/IFish.interface';
+import { IItem } from '../../interfaces/IItem.interface';
 interface IProps {
-    fish: IFish;
+    item: IItem;
 }
 
-export const DetailsInfo = (props: IProps) => {
-    const isLoaded = useFishStore(state => state.isFishByIdLoaded);
+export const DetailsInfo = ({ item }: IProps) => {
+    const isLoaded = useItemsStore(state => state.isItemByIdLoaded);
+
     const {
-        fishName,
+        itemName,
         sex,
         regularPrice,
         discount,
         actualPrice,
         isInStock,
+        type,
         description,
-    } = props.fish;
+        files,
+    } = item;
 
     return (
         <DetailsInfoContainer>
             <MainInfoContainer>
                 {isLoaded ? (
                     <Typography variant="h4" sx={{ letterSpacing: 3 }}>
-                        {fishName} (
+                        {itemName} (
                         <span style={{ textTransform: 'uppercase' }}>
                             {sex}
                         </span>
@@ -82,7 +85,13 @@ export const DetailsInfo = (props: IProps) => {
             </MainInfoContainer>
             {isLoaded ? (
                 isInStock ? (
-                    <AddToCart />
+                    <AddToCart
+                        item={{
+                            ...item,
+                            typeName: type,
+                            fileName: files[0].fileName,
+                        }}
+                    />
                 ) : (
                     <OutOfStockContainer>
                         <Typography variant="h4">Sold Out</Typography>
