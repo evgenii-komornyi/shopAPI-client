@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 
 import { AddToCartButton } from '../add-to-cart/add-to-cart-button.component';
 
-import useFishStore from '../../stores/useFish.store';
+import useItemsStore from '../../stores/useItems.store';
 
 import {
     ActualPrice,
@@ -19,30 +19,31 @@ import {
     OutOfStockLabel,
     PriceContainer,
     RegularPrice,
-} from './fish-collection.styles';
+} from './items-collection.styles';
 
-import { IFish } from '../../interfaces/IFish.interface';
+import { IItem } from '../../interfaces/IItem.interface';
 interface IProps {
-    fishItem: IFish;
+    item: IItem;
 }
 
 const { VITE_HOST_URL, VITE_HOST_PORT, VITE_IMAGES_URL, VITE_FISH_IMAGES_URL } =
     import.meta.env;
 
-export const FishItem = (props: IProps) => {
+export const Item = ({ item }: IProps) => {
+    const isLoaded = useItemsStore(state => state.isItemsByTypeLoaded);
+
     const {
-        fishId,
-        fishName,
+        itemId,
+        itemName,
         fileName,
         typeName,
         regularPrice,
         actualPrice,
         isInStock,
-    } = props.fishItem;
-    const isLoaded = useFishStore(state => state.isFishByTypeLoaded);
+    } = item;
 
     return isLoaded ? (
-        <Link to={`fish/${fishId}`} style={{ textDecoration: 'none' }}>
+        <Link to={`item/${itemId}`} style={{ textDecoration: 'none' }}>
             <ItemContainer sx={{ maxWidth: 345 }}>
                 {!isInStock && (
                     <OutOfStockContainer>
@@ -52,7 +53,7 @@ export const FishItem = (props: IProps) => {
                 <CardMedia
                     sx={{ height: 300 }}
                     image={`${VITE_HOST_URL}:${VITE_HOST_PORT}/${VITE_IMAGES_URL}/${VITE_FISH_IMAGES_URL}/${typeName.toLowerCase()}/${fileName}`}
-                    title={fishName}
+                    title={itemName}
                 />
                 <CardContent sx={{ bgcolor: '#000000' }}>
                     <Typography
@@ -61,14 +62,14 @@ export const FishItem = (props: IProps) => {
                         component="div"
                         sx={{ letterSpacing: 5, fontSize: 14 }}
                     >
-                        {fishName.toUpperCase()}
+                        {itemName.toUpperCase()}
                     </Typography>
                     <PriceContainer>
                         <RegularPrice>&euro;{regularPrice}</RegularPrice>
                         <ActualPrice>&euro;{actualPrice}</ActualPrice>
                     </PriceContainer>
                     <ControlContainer>
-                        <AddToCartButton />
+                        <AddToCartButton item={item} />
                     </ControlContainer>
                 </CardContent>
             </ItemContainer>

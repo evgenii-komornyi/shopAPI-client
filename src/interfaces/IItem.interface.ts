@@ -5,13 +5,13 @@ enum Sex {
     'female',
 }
 
-export interface IFish {
+export interface IItem {
     actualPrice: number;
     description: string;
     discount: number;
     fileName: string;
-    fishId: number;
-    fishName: string;
+    itemId: number;
+    itemName: string;
     isAvailable: boolean;
     isInStock: boolean;
     regularPrice: number;

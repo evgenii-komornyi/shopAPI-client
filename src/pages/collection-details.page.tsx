@@ -3,21 +3,21 @@ import { useParams } from 'react-router-dom';
 
 import { Container } from '@mui/material';
 
-import { FishCollection } from '../components/fish-collection/fish-collection.component';
+import { ItemsCollection } from '../components/items-collection/items-collection.component';
 
-import useFishStore from '../stores/useFish.store';
+import useItemsStore from '../stores/useItems.store';
 
 export const CollectionDetailsPage = () => {
-    const { fetchFishByType } = useFishStore(state => state);
+    const { fetchItemsByType } = useItemsStore(state => state);
     const { typeName } = useParams();
 
     useEffect(() => {
-        fetchFishByType(typeName);
-    }, [fetchFishByType, typeName]);
+        fetchItemsByType(typeName);
+    }, [fetchItemsByType, typeName]);
 
     return (
         <Container maxWidth="lg">
-            <FishCollection />
+            <ItemsCollection />
         </Container>
     );
 };
