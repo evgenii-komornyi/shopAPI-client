@@ -52,7 +52,7 @@ export const Item = ({ item }: IProps) => {
                 )}
                 <CardMedia
                     sx={{ height: 300 }}
-                    image={`${VITE_HOST_URL}:${VITE_HOST_PORT}/${VITE_IMAGES_URL}/${VITE_FISH_IMAGES_URL}/${typeName.toLowerCase()}/${fileName}`}
+                    image={`${VITE_HOST_URL}:${VITE_HOST_PORT}/${VITE_IMAGES_URL}/${VITE_FISH_IMAGES_URL}/${typeName?.toLowerCase()}/${fileName}`}
                     title={itemName}
                 />
                 <CardContent sx={{ bgcolor: '#000000' }}>

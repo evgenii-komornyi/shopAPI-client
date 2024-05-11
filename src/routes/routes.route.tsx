@@ -7,6 +7,7 @@ import { CollectionListPage } from '../pages/collection-list.page';
 import { CollectionDetailsPage } from '../pages/collection-details.page';
 import { ItemDetailsPage } from '../pages/item-details.page';
 import { CheckoutPage } from '../pages/checkout.page';
+import { ThankYouPage } from '../pages/thankyou.page';
 
 const routes = [
     { path: '/', page: <MainPage /> },
@@ -15,7 +16,11 @@ const routes = [
     { path: '/contacts', page: <ContactsPage /> },
     { path: '/collection/:typeName', page: <CollectionDetailsPage /> },
     { path: '/collection/:typeName/item/:itemId', page: <ItemDetailsPage /> },
-    { path: '/checkout/:clientId', page: <CheckoutPage /> },
+    { path: '/checkout', page: <CheckoutPage /> },
+    {
+        path: '/thankyou/:clientId/:orderId',
+        page: <ThankYouPage />,
+    },
 ];
 
 export const MainRoutes = () => {

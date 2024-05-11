@@ -38,7 +38,7 @@ export const CartItemsContainer = styled('div')({
     height: '50vh',
     display: 'flex',
     alignContent: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     flexDirection: 'column',
     flex: 5,
@@ -70,6 +70,8 @@ export const CartFooterPriceContainer = styled('div')({
     width: '100%',
     padding: '10px 50px',
     marginTop: '10px',
+    boxShadow:
+        '0 -5px 3px -3px rgba(255, 255, 255, .4), 0 5px 3px -3px rgba(255, 255, 255, .4)',
 });
 
 export const CartPriceContainer = styled('div')({
