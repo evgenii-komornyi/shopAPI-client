@@ -39,7 +39,7 @@ export const CartOverlay = () => {
     const navigate = useNavigate();
 
     const goToCheckout = () => {
-        navigate('/checkout/1');
+        navigate('/checkout');
     };
 
     const itemsCount: number = calculateItemsCount(cart);
