@@ -1,13 +1,16 @@
 import { Fragment } from 'react';
 import { Params, useParams } from 'react-router-dom';
 
-import { Box, CircularProgress, Grid, Skeleton } from '@mui/material';
+import { Grid, Skeleton } from '@mui/material';
+
+import { OrderItem } from '../order-items/order-item.component';
 
 import { useFetch } from '../../hooks/useFetch.hook';
 
 import { IGetOrderResponse } from '../../interfaces/order/IGetOrderResponse.interface';
 import { IFetchResponse } from '../../interfaces/fetch/IFetchResponse.interface';
-import { OrderItem } from '../order-items/order-item.component';
+import { IOrderItem } from '../../interfaces/order/IOrderItem.interface';
+
 import {
     ItemsContainer,
     OrderInfoContainer,
@@ -16,8 +19,6 @@ import {
     ThankYouTitle,
     TotalPriceText,
 } from './order-info.styles';
-
-import { IOrderItem } from '../../interfaces/order/IOrderItem.interface';
 
 const { VITE_HOST_URL, VITE_HOST_PORT, VITE_ORDERS_API_URL } = import.meta.env;
 

@@ -3,12 +3,11 @@ import { AxiosResponse } from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 import { formatPrice } from '../helpers/cart.helper';
-
-import { DeliveryType } from '../enums/deliveryTypes.enum';
-
-import useCartStore from '../stores/useCart.store';
 import { createOrder } from '../api/orders.api';
 
+import useCartStore from '../stores/useCart.store';
+
+import { DeliveryType } from '../enums/deliveryTypes.enum';
 import { ICreateOrderResponse } from '../interfaces/order/ICreateOrderResponse.interface';
 import { IClient } from '../interfaces/order/IClient.interface';
 import { IAddress } from '../interfaces/order/IAddress.interface';

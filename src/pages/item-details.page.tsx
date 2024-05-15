@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-
 import { Container } from '@mui/material';
 
 import { ItemDetails } from '../components/item-details/item-details.component';

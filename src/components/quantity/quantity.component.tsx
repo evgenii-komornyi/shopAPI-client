@@ -3,9 +3,9 @@ import {
     IndeterminateCheckBoxOutlined,
 } from '@mui/icons-material';
 
-import useCartStore from '../../stores/useCart.store';
-
 import { QuantityButton, QuantityText } from './quantity.styles';
+
+import useCartStore from '../../stores/useCart.store';
 
 import { ICartItem } from '../../interfaces/ICartItem.interface';
 

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import {
     Card,
     CardContent,
@@ -5,9 +6,14 @@ import {
     Skeleton,
     Typography,
 } from '@mui/material';
-import { Link } from 'react-router-dom';
 
 import useCollectionStore from '../../stores/useCollection.store';
+
+import { IType } from '../../interfaces/IType.interface';
+
+interface IProps {
+    item: IType;
+}
 
 import { ItemContainer } from './collection.styles';
 
@@ -17,11 +23,6 @@ const {
     VITE_IMAGES_URL,
     VITE_COLLECTION_IMAGES_URL,
 } = import.meta.env;
-
-import { IType } from '../../interfaces/IType.interface';
-interface IProps {
-    item: IType;
-}
 
 export const CollectionItem = ({ item: { typeName, fileName } }: IProps) => {
     const { isLoaded } = useCollectionStore(state => state);

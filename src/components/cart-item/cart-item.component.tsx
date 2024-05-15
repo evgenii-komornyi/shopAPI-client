@@ -1,3 +1,13 @@
+import { Quantity } from '../quantity/quantity.component';
+
+import { formatPrice } from '../../helpers/cart.helper';
+
+import { ICartItem } from '../../interfaces/ICartItem.interface';
+
+interface IProps {
+    cartItem: ICartItem;
+}
+
 import {
     CartItemActualPrice,
     CartItemContainer,
@@ -10,14 +20,6 @@ import {
     CartItemQuantityContainer,
     CartItemRegularPrice,
 } from './cart-item.styles';
-
-import { ICartItem } from '../../interfaces/ICartItem.interface';
-import { formatPrice } from '../../helpers/cart.helper';
-import { Quantity } from '../quantity/quantity.component';
-
-interface IProps {
-    cartItem: ICartItem;
-}
 
 const { VITE_HOST_URL, VITE_HOST_PORT, VITE_IMAGES_URL, VITE_FISH_IMAGES_URL } =
     import.meta.env;

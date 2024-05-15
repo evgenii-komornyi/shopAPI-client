@@ -17,6 +17,11 @@ import { formData } from '../../data/form-data';
 import { useCheckout } from '../../hooks/useCheckout.hook';
 
 import { DeliveryType } from '../../enums/deliveryTypes.enum';
+import { IClient } from '../../interfaces/order/IClient.interface';
+import { IAddress } from '../../interfaces/order/IAddress.interface';
+import { IDeliveryInfo } from '../../interfaces/order/IDeliveryInfo.interface';
+
+interface IState extends IClient, IAddress, IDeliveryInfo {}
 
 import {
     FormContainer,
@@ -24,11 +29,6 @@ import {
     InputGroupContainer,
     BuyButton,
 } from './checkout-form.styles';
-import { IClient } from '../../interfaces/order/IClient.interface';
-import { IAddress } from '../../interfaces/order/IAddress.interface';
-import { IDeliveryInfo } from '../../interfaces/order/IDeliveryInfo.interface';
-
-interface IState extends IClient, IAddress, IDeliveryInfo {}
 
 export const CheckoutForm = () => {
     const { fields, buy, controlProps, onChangeHandler, isButtonDisabled } =

@@ -1,14 +1,14 @@
-import { styled } from '@mui/material/styles';
+import styled from 'styled-components';
 
-export const ImageDetailsContainer = styled('div')({
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    alignContent: 'center',
-});
+export const ImageDetailsContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+`;
 
-export const Image = styled('img')({
-    width: '100%',
-    height: '500px',
-});
+export const Image = styled.img`
+    width: 100%;
+    height: 500px;
+`;

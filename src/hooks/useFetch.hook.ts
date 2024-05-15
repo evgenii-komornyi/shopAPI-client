@@ -34,5 +34,5 @@ export const useFetch = <T>(url: string): IFetchResponse<T> => {
         void fetchOrderById();
     }, [url]);
 
-    return { data, isLoaded };
+    return { data, isLoaded, exception };
 };

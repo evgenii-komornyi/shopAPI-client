@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import {
     Card,
     CardContent,
@@ -5,11 +6,16 @@ import {
     Skeleton,
     Typography,
 } from '@mui/material';
-import { Link } from 'react-router-dom';
 
 import { AddToCartButton } from '../add-to-cart/add-to-cart-button.component';
 
 import useItemsStore from '../../stores/useItems.store';
+
+import { IItem } from '../../interfaces/IItem.interface';
+
+interface IProps {
+    item: IItem;
+}
 
 import {
     ActualPrice,
@@ -20,11 +26,6 @@ import {
     PriceContainer,
     RegularPrice,
 } from './items-collection.styles';
-
-import { IItem } from '../../interfaces/IItem.interface';
-interface IProps {
-    item: IItem;
-}
 
 const { VITE_HOST_URL, VITE_HOST_PORT, VITE_IMAGES_URL, VITE_FISH_IMAGES_URL } =
     import.meta.env;

@@ -3,11 +3,10 @@ import { ShoppingCart } from '@mui/icons-material';
 
 import { CartOverlay } from '../cart-overlay/cart-overlay.component';
 
-import { useToggleDrawer } from '../../hooks/useToggleDrawer.hook';
-
-import useCartStore from '../../stores/useCart.store';
-
 import { calculateItemsCount } from '../../helpers/cart.helper';
+
+import { useToggleDrawer } from '../../hooks/useToggleDrawer.hook';
+import useCartStore from '../../stores/useCart.store';
 
 import { CartContainer, StyledBadge } from './cart-icon.styles';
 

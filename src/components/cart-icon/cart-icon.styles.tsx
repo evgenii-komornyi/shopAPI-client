@@ -1,21 +1,22 @@
+import styled from 'styled-components';
+import { styled as muiStyled } from '@mui/material/styles';
 import Badge, { BadgeProps } from '@mui/material/Badge';
-import { Box, Button } from '@mui/material';
+import { Box } from '@mui/material';
 
-import { styled } from '@mui/material/styles';
-
-export const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
+export const StyledBadge = muiStyled(Badge)<BadgeProps>(({ theme }) => ({
     '& .MuiBadge-badge': {
         right: -3,
         top: 13,
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         border: `2px solid ${theme.palette.background.paper}`,
         padding: '0 4px',
     },
 }));
 
-export const CartContainer = styled(Box)({
-    height: '100vh',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-});
+export const CartContainer = styled(Box)`
+    height: 100vh !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+`;

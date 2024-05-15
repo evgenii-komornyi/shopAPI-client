@@ -1,5 +1,11 @@
 import { formatPrice } from '../../helpers/cart.helper';
 
+import { ICartItem } from '../../interfaces/ICartItem.interface';
+
+interface IProps {
+    cartItem: ICartItem;
+}
+
 import {
     CheckoutItemActualPrice,
     CheckoutItemActualPriceContainer,
@@ -11,12 +17,6 @@ import {
     Quantity,
     QuantityContainer,
 } from './checkout-item.styles';
-
-import { ICartItem } from '../../interfaces/ICartItem.interface';
-
-interface IProps {
-    cartItem: ICartItem;
-}
 
 const { VITE_HOST_URL, VITE_HOST_PORT, VITE_IMAGES_URL, VITE_FISH_IMAGES_URL } =
     import.meta.env;
