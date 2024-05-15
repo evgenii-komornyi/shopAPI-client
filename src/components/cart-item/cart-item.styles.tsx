@@ -1,82 +1,82 @@
+import styled from 'styled-components';
 import { Typography } from '@mui/material';
-import { styled } from '@mui/material/styles';
 
-export const CartItemContainer = styled('div')({
-    width: '100%',
-    height: '170px',
-    display: 'flex',
-    justifyContent: 'space-between',
-    flexDirection: 'column',
-    borderRadius: '10px',
-    boxShadow: '0 0 10px rgba(255, 255, 255, .2)',
-    padding: '10px',
-    margin: '10px auto',
-    transition: 'box-shadow .2s ease-in',
+export const CartItemContainer = styled.div`
+    width: 100%;
+    height: 170px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    padding: 10px;
+    margin: 10px auto;
+    transition: box-shadow 0.2s ease-in;
 
-    '&:hover': {
-        boxShadow: '0 0 10px rgba(255, 255, 255, .8)',
-        transition: 'box-shadow .2s ease-in',
-    },
-});
+    &:hover {
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        transition: box-shadow 0.2s ease-in;
+    }
+`;
 
-export const CartItemInfoContainer = styled('div')({
-    padding: '5px',
-});
+export const CartItemInfoContainer = styled.div`
+    padding: 5px;
+`;
 
-export const CartItemNameSexText = styled(Typography)({
-    fontSize: '12px',
-    textAlign: 'center',
-});
+export const CartItemNameSexText = styled(Typography)`
+    font-size: 12px !important;
+    text-align: center !important;
+`;
 
-export const CartItemImagePriceButtonsContainer = styled('div')({
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    gap: '10px',
-    padding: '5px',
-});
+export const CartItemImagePriceButtonsContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 5px;
+`;
 
-export const CartItemImageContainer = styled('div')({
-    flex: 2,
-    borderRadius: '10px',
-    boxShadow: '0 0 5px rgba(255, 255, 255, .5)',
-});
+export const CartItemImageContainer = styled.div`
+    flex: 2;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+`;
 
-export const CartItemImage = styled('img')({
-    width: '100%',
-    height: '100%',
-    borderRadius: '10px',
-});
+export const CartItemImage = styled.img`
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+`;
 
-export const CartItemPriceContainer = styled('div')({
-    flex: 2.5,
-    display: 'flex',
-    flexDirection: 'column',
-    alignContent: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
-    boxShadow: '0 0 5px rgba(255, 255, 255, .5)',
-});
+export const CartItemPriceContainer = styled.div`
+    flex: 2.5;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+`;
 
-export const CartItemRegularPrice = styled(Typography)({
-    textAlign: 'center',
-    marginBottom: '10px',
-    textDecoration: 'line-through',
-    fontWeight: 'bold',
-});
+export const CartItemRegularPrice = styled(Typography)`
+    text-align: center !important;
+    margin-bottom: 10px !important;
+    text-decoration: line-through !important;
+    font-weight: bold !important;
+`;
 
-export const CartItemActualPrice = styled(Typography)({
-    textAlign: 'center',
-});
+export const CartItemActualPrice = styled(Typography)`
+    text-align: center !important;
+`;
 
-export const CartItemQuantityContainer = styled('div')({
-    flex: 3,
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'row',
-    alignContent: 'center',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: '0 5px',
-    boxShadow: '0 0 5px rgba(255, 255, 255, .5)',
-});
+export const CartItemQuantityContainer = styled.div`
+    flex: 3;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5px;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+`;

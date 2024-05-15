@@ -4,12 +4,12 @@ import { CancelTwoTone } from '@mui/icons-material';
 
 import { CartItem } from '../cart-item/cart-item.component';
 
-import useCartStore from '../../stores/useCart.store';
-
 import {
     calculateItemsCount,
     calculateTotalPrice,
 } from '../../helpers/cart.helper';
+
+import useCartStore from '../../stores/useCart.store';
 
 import {
     CartCheckoutButton,

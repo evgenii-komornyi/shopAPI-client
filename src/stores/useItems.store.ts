@@ -12,8 +12,8 @@ interface IItemState {
     isItemsByTypeLoaded: boolean;
     isItemByIdLoaded: boolean;
 
-    fetchItemsByType: (typeName: string) => void;
-    fetchItemById: (itemId: number) => void;
+    fetchItemsByType: (typeName: string | undefined) => void;
+    fetchItemById: (itemId: string | undefined) => void;
 }
 
 const itemsStore = set => ({
@@ -35,7 +35,7 @@ const itemsStore = set => ({
         }
     },
 
-    fetchItemById: async (itemId: number) => {
+    fetchItemById: async (itemId: string) => {
         try {
             const { data } = await getItemById(itemId);
 

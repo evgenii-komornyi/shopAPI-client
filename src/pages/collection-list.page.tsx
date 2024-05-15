@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-
 import { Container } from '@mui/material';
 
 import { Collection } from '../components/collection/collection.component';

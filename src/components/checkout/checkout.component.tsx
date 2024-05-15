@@ -36,7 +36,7 @@ export const Checkout = () => {
                             </Fragment>
                         ))}
                     </CartItemsContainer>
-                    <TotalPriceContainer sx={{ mt: 5 }}>
+                    <TotalPriceContainer>
                         <TotalPriceText variant="h6">
                             total price
                         </TotalPriceText>

@@ -9,7 +9,7 @@ export interface IItem {
     actualPrice: number;
     description: string;
     discount: number;
-    fileName: string;
+    fileName: string | undefined;
     itemId: number;
     itemName: string;
     isAvailable: boolean;

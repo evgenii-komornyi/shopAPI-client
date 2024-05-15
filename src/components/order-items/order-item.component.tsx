@@ -1,5 +1,11 @@
 import { formatPrice } from '../../helpers/cart.helper';
+
 import { IOrderItem } from '../../interfaces/order/IOrderItem.interface';
+
+interface IProps {
+    orderItem: IOrderItem;
+}
+
 import {
     Image,
     ImageContainer,
@@ -11,10 +17,6 @@ import {
     Quantity,
     QuantityContainer,
 } from './order-items.styles';
-
-interface IProps {
-    orderItem: IOrderItem;
-}
 
 const { VITE_HOST_URL, VITE_HOST_PORT, VITE_IMAGES_URL, VITE_FISH_IMAGES_URL } =
     import.meta.env;

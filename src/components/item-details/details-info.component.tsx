@@ -4,6 +4,12 @@ import { AddToCart } from '../add-to-cart/add-to-cart.component';
 
 import useItemsStore from '../../stores/useItems.store';
 
+import { IItem } from '../../interfaces/IItem.interface';
+
+interface IProps {
+    item: IItem;
+}
+
 import {
     ActualPrice,
     AdditionalInfoContainer,
@@ -15,11 +21,6 @@ import {
     RegularPrice,
     SavePrice,
 } from './item-details.styles';
-
-import { IItem } from '../../interfaces/IItem.interface';
-interface IProps {
-    item: IItem;
-}
 
 export const DetailsInfo = ({ item }: IProps) => {
     const isLoaded = useItemsStore(state => state.isItemByIdLoaded);
@@ -58,19 +59,36 @@ export const DetailsInfo = ({ item }: IProps) => {
                 <PriceContainer>
                     {isLoaded ? (
                         <>
-                            <RegularPrice
-                                sx={{ fontSize: { xs: 20, sm: 20, md: 40 } }}
-                            >
-                                &euro;{regularPrice}
+                            <RegularPrice>
+                                <Typography
+                                    sx={{
+                                        fontSize: { xs: 20, sm: 20, md: 40 },
+                                    }}
+                                    variant="body1"
+                                >
+                                    &euro;{regularPrice}
+                                </Typography>
                             </RegularPrice>
-                            <ActualPrice
-                                sx={{ fontSize: { xs: 20, sm: 20, md: 40 } }}
-                            >
-                                &euro;{actualPrice}
+                            <ActualPrice>
+                                <Typography
+                                    sx={{
+                                        fontSize: { xs: 20, sm: 20, md: 40 },
+                                    }}
+                                    variant="body1"
+                                >
+                                    &euro;{actualPrice}
+                                </Typography>
                             </ActualPrice>
-                            <SavePrice sx={{ fontSize: { xs: 15 } }}>
-                                Save &euro;
-                                {(regularPrice * (discount / 100)).toFixed(2)}
+                            <SavePrice>
+                                <Typography
+                                    sx={{ fontSize: { xs: 15 } }}
+                                    variant="body1"
+                                >
+                                    Save &euro;
+                                    {(regularPrice * (discount / 100)).toFixed(
+                                        2
+                                    )}
+                                </Typography>
                             </SavePrice>
                         </>
                     ) : (
@@ -89,7 +107,7 @@ export const DetailsInfo = ({ item }: IProps) => {
                         item={{
                             ...item,
                             typeName: type,
-                            fileName: files[0].fileName,
+                            fileName: files?.[0].fileName,
                         }}
                     />
                 ) : (
