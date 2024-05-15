@@ -6,7 +6,7 @@ import { ItemsCollection } from '../components/items-collection/items-collection
 
 import useItemsStore from '../stores/useItems.store';
 
-export const CollectionDetailsPage = () => {
+export const CategoryDetailsPage = () => {
     const { fetchItemsByType } = useItemsStore(state => state);
     const { typeName } = useParams<Params<string>>();
 

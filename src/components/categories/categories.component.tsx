@@ -1,25 +1,25 @@
 import { Grid } from '@mui/material';
-import { CollectionItem } from './collection-item.component';
+import { CategoryItem } from './category-item.component';
 
-import useCollectionStore from '../../stores/useCollection.store';
+import useCategoriesStore from '../../stores/useCategories.store';
 
 import { IType } from '../../interfaces/IType.interface';
 
-export const Collection = () => {
-    const collection: IType[] = useCollectionStore(state => state.collection);
+export const Categories = () => {
+    const categories: IType[] = useCategoriesStore(state => state.categories);
 
     return (
         <Grid container spacing={2} sx={{ mt: 4 }}>
-            {collection.map(item => (
+            {categories.map(categoryItem => (
                 <Grid
-                    key={item.typeId}
+                    key={categoryItem.typeId}
                     item
                     xs={12}
                     sm={6}
                     md={4}
                     textAlign="center"
                 >
-                    <CollectionItem item={item} />
+                    <CategoryItem item={categoryItem} />
                 </Grid>
             ))}
         </Grid>

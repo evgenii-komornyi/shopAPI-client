@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 
-import { getItemsByType } from '../api/collection.api';
+import { getItemsByCategory } from '../api/collection.api';
 import { getItemById } from '../api/items.api';
 
 import { IItem } from '../interfaces/IItem.interface';
@@ -24,7 +24,7 @@ const itemsStore = set => ({
 
     fetchItemsByType: async (typeName: string) => {
         try {
-            const { data } = await getItemsByType(typeName);
+            const { data } = await getItemsByCategory(typeName);
 
             if (data) {
                 set({ items: data, isItemsByTypeLoaded: true });

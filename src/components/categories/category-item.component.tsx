@@ -7,7 +7,7 @@ import {
     Typography,
 } from '@mui/material';
 
-import useCollectionStore from '../../stores/useCollection.store';
+import useCategoriesStore from '../../stores/useCategories.store';
 
 import { IType } from '../../interfaces/IType.interface';
 
@@ -15,7 +15,7 @@ interface IProps {
     item: IType;
 }
 
-import { ItemContainer } from './collection.styles';
+import { ItemContainer } from './categories.styles';
 
 const {
     VITE_HOST_URL,
@@ -24,8 +24,8 @@ const {
     VITE_COLLECTION_IMAGES_URL,
 } = import.meta.env;
 
-export const CollectionItem = ({ item: { typeName, fileName } }: IProps) => {
-    const { isLoaded } = useCollectionStore(state => state);
+export const CategoryItem = ({ item: { typeName, fileName } }: IProps) => {
+    const { isLoaded } = useCategoriesStore(state => state);
 
     return isLoaded ? (
         <Link to={`${typeName}`} style={{ textDecoration: 'none' }}>

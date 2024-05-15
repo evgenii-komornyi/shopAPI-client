@@ -6,7 +6,7 @@ export const ItemContainer = styled(Card)`
     transition: box-shadow 0.5s ease-in !important;
 
     &:hover {
-        box-shadow: 0 0 5px rgba(242, 125, 12, 0.2);
+        box-shadow: 0 0 5px rgba(242, 125, 12, 0.2) !important;
         transition: box-shadow 0.5s ease-in !important;
         cursor: pointer !important;
     }
