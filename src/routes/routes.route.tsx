@@ -3,18 +3,18 @@ import { Routes, Route } from 'react-router-dom';
 import { MainPage } from '../pages/main.page';
 import { AboutUsPage } from '../pages/about-us.page';
 import { ContactsPage } from '../pages/contacts.page';
-import { CollectionListPage } from '../pages/collection-list.page';
-import { CollectionDetailsPage } from '../pages/collection-details.page';
+import { CategoriesListPage } from '../pages/categories-list.page';
+import { CategoryDetailsPage } from '../pages/category-details.page';
 import { ItemDetailsPage } from '../pages/item-details.page';
 import { CheckoutPage } from '../pages/checkout.page';
 import { ThankYouPage } from '../pages/thankyou.page';
 
 const routes = [
     { path: '/', page: <MainPage /> },
-    { path: '/collection', page: <CollectionListPage /> },
+    { path: '/collection', page: <CategoriesListPage /> },
     { path: '/about-us', page: <AboutUsPage /> },
     { path: '/contacts', page: <ContactsPage /> },
-    { path: '/collection/:typeName', page: <CollectionDetailsPage /> },
+    { path: '/collection/:typeName', page: <CategoryDetailsPage /> },
     { path: '/collection/:typeName/item/:itemId', page: <ItemDetailsPage /> },
     { path: '/checkout', page: <CheckoutPage /> },
     {

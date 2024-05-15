@@ -11,7 +11,7 @@ export const StyledNavLink = styled(NavLink)`
     transition: border-bottom 0.5s ease-in !important;
 
     &.active,
-    :hover {
+    &:hover {
         border-bottom: 1px solid rgba(242, 125, 12, 0.4) !important;
         transition: border-bottom 0.5s ease-in !important;
     }
