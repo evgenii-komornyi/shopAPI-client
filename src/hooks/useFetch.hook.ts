@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 // import { NavigateFunction, useNavigate } from 'react-router-dom';
 
 import { getById } from '../api/genericGet.api';
@@ -34,5 +34,10 @@ export const useFetch = <T>(url: string): IFetchResponse<T> => {
         void fetchOrderById();
     }, [url]);
 
-    return { data, isLoaded, exception };
+    const memoizedData: T | undefined = useMemo(
+        (): T | undefined => data,
+        [data]
+    );
+
+    return { data: memoizedData, isLoaded, exception };
 };
