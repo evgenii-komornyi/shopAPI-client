@@ -1,54 +1,72 @@
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 
-import { getItemsByCategory } from '../api/collection.api';
+import { getItemsByCategory } from '../api/categories.api';
 import { getItemById } from '../api/items.api';
 
 import { IItem } from '../interfaces/IItem.interface';
+import { AxiosResponse } from 'axios';
 
 interface IItemState {
     items: IItem[];
-    item: IItem;
+    item: IItem | null;
     isItemsByTypeLoaded: boolean;
     isItemByIdLoaded: boolean;
 
-    fetchItemsByType: (typeName: string | undefined) => void;
-    fetchItemById: (itemId: string | undefined) => void;
+    fetchItemsByType: (typeName: string) => Promise<void>;
+    fetchItemById: (itemId: string) => Promise<void>;
 }
 
-const itemsStore = set => ({
-    items: [],
-    item: {},
-    isItemsByTypeLoaded: false,
-    isItemByIdLoaded: false,
+const useItemsStore = create<IItemState>()(
+    devtools(set => ({
+        items: [],
+        item: null,
+        isItemsByTypeLoaded: false,
+        isItemByIdLoaded: false,
 
-    fetchItemsByType: async (typeName: string) => {
-        try {
-            const { data } = await getItemsByCategory(typeName);
+        fetchItemsByType: async (typeName: string) => {
+            try {
+                const response = await getItemsByCategory(typeName);
+                const typedResponse = response as AxiosResponse<IItem[]>;
 
-            if (data) {
-                set({ items: data, isItemsByTypeLoaded: true });
+                if (typedResponse.data) {
+                    set({
+                        items: typedResponse.data,
+                        isItemsByTypeLoaded: true,
+                    });
+                }
+            } catch (err) {
+                let errorMessage = 'Generic error';
+
+                if (err instanceof Error) {
+                    errorMessage = err.message;
+                }
+
+                console.error('items store: ', errorMessage);
+                set({ isItemsByTypeLoaded: false });
             }
-        } catch (err) {
-            console.error('items store: ', err.message);
-            set({ isItemsByTypeLoaded: false });
-        }
-    },
+        },
 
-    fetchItemById: async (itemId: string) => {
-        try {
-            const { data } = await getItemById(itemId);
+        fetchItemById: async (itemId: string) => {
+            try {
+                const response = await getItemById(itemId);
+                const typedResponse = response as AxiosResponse<IItem>;
 
-            if (data) {
-                set({ item: data, isItemByIdLoaded: true });
+                if (typedResponse.data) {
+                    set({ item: typedResponse.data, isItemByIdLoaded: true });
+                }
+            } catch (err) {
+                let errorMessage = 'Generic error';
+
+                if (err instanceof Error) {
+                    errorMessage = err.message;
+                }
+
+                console.error('items store: ', errorMessage);
+                set({ isItemByIdLoaded: false });
             }
-        } catch (err) {
-            console.error('items store: ', err.message);
-            set({ isItemByIdLoaded: false });
-        }
-    },
-});
-
-const useItemsStore = create<IItemState>()(devtools(itemsStore));
+        },
+    }))
+);
 
 export default useItemsStore;

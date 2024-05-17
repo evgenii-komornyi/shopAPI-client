@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Container } from '@mui/material';
 
-import { Categories } from '../components/categories/categories.component';
+import { Categories } from '../components/Categories';
 
 import useCategoriesStore from '../stores/useCategories.store';
 

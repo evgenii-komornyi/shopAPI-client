@@ -8,8 +8,14 @@ import { CategoryDetailsPage } from '../pages/category-details.page';
 import { ItemDetailsPage } from '../pages/item-details.page';
 import { CheckoutPage } from '../pages/checkout.page';
 import { ThankYouPage } from '../pages/thankyou.page';
+import { ReactElement } from 'react';
 
-const routes = [
+interface IRoute {
+    path: string;
+    page: ReactElement;
+}
+
+const routes: IRoute[] = [
     { path: '/', page: <MainPage /> },
     { path: '/collection', page: <CategoriesListPage /> },
     { path: '/about-us', page: <AboutUsPage /> },

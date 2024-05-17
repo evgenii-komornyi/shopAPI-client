@@ -1,31 +1,51 @@
 import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
 import { addItemToCart, removeItemFromCart } from '../helpers/cart.helper';
+import { ICartItem } from '../interfaces/ICartItem.interface';
+import { IItem } from '../interfaces/IItem.interface';
 
-const cartStore = set => ({
-    cart: [],
+interface ICartState {
+    cart: ICartItem[];
 
-    addItem: itemToAdd => {
-        set(state => ({ cart: addItemToCart(state.cart, itemToAdd) }));
-    },
+    addItem: (itemToAdd: IItem) => void;
+    removeItem: (itemToRemove: IItem) => void;
+    removeWholeItem: (itemIdToRemove: number) => void;
+    clearCart: () => void;
+}
 
-    removeItem: itemToRemove => {
-        set(state => ({ cart: removeItemFromCart(state.cart, itemToRemove) }));
-    },
+const useCartStore = create<ICartState>()(
+    devtools(
+        persist(
+            set => ({
+                cart: [],
 
-    removeWholeItem: itemIdToRemove => {
-        set(state => ({
-            cart: state.cart.filter(
-                cartItem => cartItem.itemId !== itemIdToRemove
-            ),
-        }));
-    },
+                addItem: (itemToAdd: IItem) => {
+                    set(state => ({
+                        cart: addItemToCart(state.cart, itemToAdd),
+                    }));
+                },
 
-    clearCart: () => {
-        set({ cart: [] });
-    },
-});
+                removeItem: (itemToRemove: IItem) => {
+                    set(state => ({
+                        cart: removeItemFromCart(state.cart, itemToRemove),
+                    }));
+                },
 
-const useCartStore = create(persist(devtools(cartStore), { name: 'cart' }));
+                removeWholeItem: itemIdToRemove => {
+                    set(state => ({
+                        cart: state.cart.filter(
+                            cartItem => cartItem.itemId !== itemIdToRemove
+                        ),
+                    }));
+                },
+
+                clearCart: () => {
+                    set({ cart: [] });
+                },
+            }),
+            { name: 'cart' }
+        )
+    )
+);
 
 export default useCartStore;

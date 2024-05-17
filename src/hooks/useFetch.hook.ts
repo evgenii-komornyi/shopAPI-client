@@ -15,7 +15,7 @@ export const useFetch = <T>(url: string): IFetchResponse<T> => {
     // const navigate: NavigateFunction = useNavigate();
 
     useEffect(() => {
-        const fetchOrderById = async (): Promise<void> => {
+        const fetchById = async (): Promise<void> => {
             try {
                 const response: AxiosResponse<T> = await getById<T>(url);
 
@@ -31,7 +31,7 @@ export const useFetch = <T>(url: string): IFetchResponse<T> => {
                 }
             }
         };
-        void fetchOrderById();
+        void fetchById();
     }, [url]);
 
     const memoizedData: T | undefined = useMemo(

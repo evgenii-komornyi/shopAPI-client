@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useParams, Params } from 'react-router-dom';
 import { Container } from '@mui/material';
 
-import { ItemsCollection } from '../components/items-collection/items-collection.component';
+import { ItemsCollection } from '../components/ItemsCollection';
 
 import useItemsStore from '../stores/useItems.store';
 
@@ -11,8 +11,8 @@ export const CategoryDetailsPage = () => {
     const { typeName } = useParams<Params<string>>();
 
     useEffect(() => {
-        fetchItemsByType(typeName);
-    }, [fetchItemsByType, typeName]);
+        if (typeName) void fetchItemsByType(typeName);
+    }, [typeName]);
 
     return (
         <Container maxWidth="lg">
