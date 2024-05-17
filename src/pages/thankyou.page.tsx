@@ -1,6 +1,6 @@
 import { Container } from '@mui/material';
 
-import { OrderInfo } from '../components/order-info/order-info.component';
+import { OrderInfo } from '../components/OrderInfo';
 
 export const ThankYouPage = () => {
     return (

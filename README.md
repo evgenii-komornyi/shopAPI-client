@@ -6,10 +6,10 @@
 
 -   VITE_HOST_URL=http://localhost
 -   VITE_HOST_PORT=5000
--   VITE_COLLECTION_API_URL=types
+-   VITE_CATEGORIES_API_URL=types
 -   VITE_ITEMS_API_URL=items
 -   VITE_IMAGES_URL=images
--   VITE_COLLECTION_IMAGES_URL=categories
+-   VITE_CATEGORIES_IMAGES_URL=categories
 -   VITE_FISH_IMAGES_URL=items/fish
 
 ### yarn:

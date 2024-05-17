@@ -2,8 +2,8 @@ import { Outlet } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
 
-import { Header } from './components/header/header.component';
-import { Footer } from './components/footer/footer.component';
+import { Header } from './components/Header';
+import { Footer } from './components/Footer';
 
 import { MainRoutes } from './routes/routes.route';
 

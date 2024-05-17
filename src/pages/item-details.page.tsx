@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Container } from '@mui/material';
 
-import { ItemDetails } from '../components/item-details/item-details.component';
+import { ItemDetails } from '../components/ItemDetails';
 
 import useItemsStore from '../stores/useItems.store';
 
@@ -11,8 +11,8 @@ export const ItemDetailsPage = () => {
     const { fetchItemById } = useItemsStore(state => state);
 
     useEffect(() => {
-        fetchItemById(itemId);
-    }, [fetchItemById, itemId]);
+        if (itemId) void fetchItemById(itemId);
+    }, [itemId]);
 
     return (
         <Container maxWidth="lg">
