@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { IconButton, Typography } from '@mui/material';
 import { CancelTwoTone } from '@mui/icons-material';
 
-import { CartItem } from '../CartItem';
+import { CartItem, CartItemList } from '../CartItemList';
 
 import {
     calculateItemsCount,
@@ -29,7 +29,6 @@ import {
 } from './styles/CartOverlay.styles';
 
 export const CartOverlay = () => {
-    console.log('cart overlay render');
     const { cart, clearCart } = useCartStore(state => state);
 
     const removeAllItems = (event: React.MouseEvent) => {
@@ -76,12 +75,7 @@ export const CartOverlay = () => {
                 </CartHeader>
                 <CartItemsContainer>
                     {cart.length > 0 ? (
-                        cart.map(cartItem => (
-                            <CartItem
-                                key={cartItem.itemId}
-                                cartItem={cartItem}
-                            />
-                        ))
+                        <CartItemList />
                     ) : (
                         <Typography variant="h4">Cart is empty!</Typography>
                     )}

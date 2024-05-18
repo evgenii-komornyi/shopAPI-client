@@ -44,7 +44,6 @@ export const CheckoutForm = () => {
                         '& > :not(style)': { m: 1 },
                     }}
                     noValidate
-                    autoComplete="off"
                 >
                     {formData[0].fields.map(
                         (
@@ -62,6 +61,7 @@ export const CheckoutForm = () => {
                                     onChange={onChangeHandler}
                                     size="small"
                                     variant="outlined"
+                                    autoComplete="off"
                                 />
                             </Fragment>
                         )
@@ -76,7 +76,6 @@ export const CheckoutForm = () => {
                         '& > :not(style)': { m: 1 },
                     }}
                     noValidate
-                    autoComplete="off"
                 >
                     <FormControl fullWidth>
                         <RadioGroup row>
@@ -112,7 +111,6 @@ export const CheckoutForm = () => {
                             '& > :not(style)': { m: 1, width: '97%' },
                         }}
                         noValidate
-                        autoComplete="off"
                     >
                         <FormControl fullWidth>
                             <InputLabel id="country-label">Country</InputLabel>

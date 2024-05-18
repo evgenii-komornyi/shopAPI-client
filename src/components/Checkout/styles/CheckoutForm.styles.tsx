@@ -31,9 +31,10 @@ const CustomButton = styled(Button)`
     letter-spacing: 3px !important;
 `;
 
-export const BuyButton = styled(CustomButton)`
-    background-color: white !important;
-    color: black !important;
+export const BuyButton = styled(CustomButton)<{ $disabled?: boolean }>`
+    background-color: ${props =>
+        props.disabled ? 'gray' : 'white'} !important;
+    color: ${props => (props.disabled ? 'darkslategray' : 'black')} !important;
     font-weight: bold !important;
 
     &:hover {

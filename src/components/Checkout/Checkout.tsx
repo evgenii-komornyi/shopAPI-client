@@ -1,4 +1,5 @@
-import { Fragment } from 'react';
+import { Fragment, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Grid } from '@mui/material';
 
 import { CheckoutForm } from './components/CheckoutForm';
@@ -19,6 +20,11 @@ import {
 
 export const Checkout = () => {
     const { cart } = useCartStore(state => state);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (cart.length === 0) navigate('/');
+    }, []);
 
     return (
         <Grid container spacing={5} sx={{ mt: 4 }}>
