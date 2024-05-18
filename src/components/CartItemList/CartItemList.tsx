@@ -1,11 +1,6 @@
+import { memo } from 'react';
 import { formatPrice } from '../../helpers/cart.helper';
 import { Quantity } from '../Quantity';
-
-import { ICartItem } from '../../interfaces/ICartItem.interface';
-
-interface IProps {
-    cartItem: ICartItem;
-}
 
 import {
     CartItemActualPrice,
@@ -18,15 +13,17 @@ import {
     CartItemPriceContainer,
     CartItemQuantityContainer,
     CartItemRegularPrice,
-} from './styles/CartItem.styles';
+} from './styles/CartItemList.styles';
+import useCartStore from '../../stores/useCart.store';
 
 const { VITE_HOST_URL, VITE_HOST_PORT, VITE_IMAGES_URL, VITE_FISH_IMAGES_URL } =
     import.meta.env;
 
-export const CartItem = ({ cartItem }: IProps) => {
-    console.log('cart item render');
-    return (
-        <CartItemContainer>
+const CartItems = () => {
+    const { cart } = useCartStore(state => state);
+
+    return cart.map(cartItem => (
+        <CartItemContainer key={cartItem.itemId}>
             <CartItemInfoContainer>
                 <CartItemNameSexText variant="h5">
                     {`${cartItem.itemName} (${cartItem.sex.toString().toUpperCase()})`}
@@ -53,5 +50,7 @@ export const CartItem = ({ cartItem }: IProps) => {
                 </CartItemPriceContainer>
             </CartItemImagePriceButtonsContainer>
         </CartItemContainer>
-    );
+    ));
 };
+
+export const CartItemList = memo(CartItems);

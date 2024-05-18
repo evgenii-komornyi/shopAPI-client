@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import {
     AddBoxOutlined,
     IndeterminateCheckBoxOutlined,
@@ -13,8 +14,7 @@ interface IProps {
     cartItem: ICartItem;
 }
 
-export const Quantity = ({ cartItem }: IProps) => {
-    console.log('quantity render');
+const QuantityButtons = ({ cartItem }: IProps) => {
     const { addItem, removeItem } = useCartStore(state => state);
 
     const { quantity } = cartItem;
@@ -41,3 +41,5 @@ export const Quantity = ({ cartItem }: IProps) => {
         </>
     );
 };
+
+export const Quantity = memo(QuantityButtons);

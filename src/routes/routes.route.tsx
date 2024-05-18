@@ -1,3 +1,4 @@
+import { ReactElement, memo } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import { MainPage } from '../pages/main.page';
@@ -8,7 +9,6 @@ import { CategoryDetailsPage } from '../pages/category-details.page';
 import { ItemDetailsPage } from '../pages/item-details.page';
 import { CheckoutPage } from '../pages/checkout.page';
 import { ThankYouPage } from '../pages/thankyou.page';
-import { ReactElement } from 'react';
 
 interface IRoute {
     path: string;
@@ -29,7 +29,7 @@ const routes: IRoute[] = [
     },
 ];
 
-export const MainRoutes = () => {
+const NonMemoizedRoutes = () => {
     return (
         <Routes>
             {routes.map(({ path, page }, index) => (
@@ -38,3 +38,5 @@ export const MainRoutes = () => {
         </Routes>
     );
 };
+
+export const MainRoutes = memo(NonMemoizedRoutes);
