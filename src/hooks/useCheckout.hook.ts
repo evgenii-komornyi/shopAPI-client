@@ -1,4 +1,5 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useCallback, useState } from 'react';
+import { SelectChangeEvent } from '@mui/material';
 import { AxiosResponse } from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -7,87 +8,72 @@ import { createOrder } from '../api/orders.api';
 
 import useCartStore from '../stores/useCart.store';
 
-import { DeliveryType } from '../enums/deliveryTypes.enum';
+import { DeliveryType } from '../enums/DeliveryTypes.enum';
+
 import { ICreateOrderResponse } from '../interfaces/order/ICreateOrderResponse.interface';
-import { IClient } from '../interfaces/order/IClient.interface';
-import { IAddress } from '../interfaces/order/IAddress.interface';
-import { IDeliveryInfo } from '../interfaces/order/IDeliveryInfo.interface';
 import { IOrderInfo } from '../interfaces/order/IOrderInfo.interface';
-import { SelectChangeEvent } from '@mui/material';
+import { ICheckoutField } from '../interfaces/checkout/ICheckoutField.interface';
+import { IControlProps } from '../interfaces/checkout/IControlProps.interface';
+import { useCheckOnErrors } from './useCheckOnErrors.hook';
+import { ICheckoutHookReturns } from '../interfaces/checkout/hook/ICheckoutHookReturns.interface';
+import { IReduceItem } from '../interfaces/checkout/hook/IReduceItem.interface';
 
-interface IState extends IClient, IAddress, IDeliveryInfo {}
-
-interface IControlProps {
-    checked: boolean;
-    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    value: string;
-    name: string;
-    inputProps: {
-        'aria-label': string;
-    };
-}
-
-interface IHookReturns {
-    fields: IState;
-    isButtonDisabled: boolean;
-    buy: () => Promise<void>;
-    controlProps: (item: string) => IControlProps;
-    onChangeHandler: (
-        event:
-            | SelectChangeEvent<HTMLInputElement | string>
-            | ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-    ) => void;
-}
-
-interface IReduceItem {
-    actualPrice: number;
-    quantity: number;
-}
-
-export const useCheckout = (): IHookReturns => {
+export const useCheckout = (): ICheckoutHookReturns => {
     const { cart, clearCart } = useCartStore(state => state);
 
     const navigate = useNavigate();
 
-    const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
-
-    const [fields, setFields] = useState<IState>({
+    const [userInputs, setUserInputs] = useState<ICheckoutField>({
         email: '',
         firstName: '',
         lastName: '',
         phoneNumber: '',
-        deliveryType: DeliveryType.courier,
-        country: '',
+        deliveryType: DeliveryType.COURIER,
+        country: 'Latvia',
         city: '',
         postalCode: '',
         address: '',
         deliveryComment: '',
     });
 
-    const onChangeHandler = (
-        event:
-            | SelectChangeEvent<HTMLInputElement | string>
-            | ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-    ): void => {
-        const { name, value } = event.target;
+    const { validationErrors, checkFieldValueByName, isButtonDisabled } =
+        useCheckOnErrors(userInputs);
 
-        setFields(prevState => ({
-            ...prevState,
-            [name]: value,
-        }));
-    };
+    const onChangeHandler = useCallback(
+        (
+            event:
+                | SelectChangeEvent<HTMLInputElement | string>
+                | ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+        ): void => {
+            const { name, value } = event.target;
+
+            const trimmedValue =
+                typeof value === 'string' ? value.trim() : value.value.trim();
+
+            setUserInputs(prevState => ({
+                ...prevState,
+                [name]: trimmedValue,
+            }));
+        },
+        []
+    );
+
+    const onBlurHandler = useCallback(
+        (fieldName: string, fieldValue: string): void => {
+            checkFieldValueByName(fieldName, fieldValue.trim());
+        },
+        [checkFieldValueByName]
+    );
 
     const controlProps = (item: string): IControlProps => ({
-        checked: fields.deliveryType.toString() === item,
+        checked: userInputs.deliveryType.toString() === item,
         onChange: onChangeHandler,
-        value: item,
+        value: item.trim(),
         name: 'deliveryType',
         inputProps: { 'aria-label': item },
     });
 
     const buy = async () => {
-        setIsButtonDisabled(true);
-
         const {
             email,
             firstName,
@@ -99,11 +85,13 @@ export const useCheckout = (): IHookReturns => {
             postalCode,
             deliveryType,
             deliveryComment,
-        } = fields;
+        } = userInputs;
 
         const orderInfo: IOrderInfo = {
             client: { email, firstName, lastName, phoneNumber },
-            address: { country, city, address, postalCode },
+            ...(deliveryType !== DeliveryType.SHOP && {
+                address: { country, city, address, postalCode },
+            }),
             orderInfo: {
                 deliveryType,
                 deliveryComment,
@@ -117,7 +105,11 @@ export const useCheckout = (): IHookReturns => {
                     )
                 ),
             },
-            cart,
+            cart: cart.map(({ itemId, actualPrice, quantity }) => ({
+                itemId,
+                actualPrice,
+                quantity,
+            })),
         };
 
         try {
@@ -135,5 +127,13 @@ export const useCheckout = (): IHookReturns => {
         }
     };
 
-    return { fields, buy, controlProps, onChangeHandler, isButtonDisabled };
+    return {
+        userInputs,
+        validationErrors,
+        buy,
+        controlProps,
+        onChangeHandler,
+        onBlurHandler,
+        isButtonDisabled,
+    };
 };

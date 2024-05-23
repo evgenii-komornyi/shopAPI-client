@@ -1,211 +1,72 @@
 import { Fragment } from 'react';
-import {
-    Box,
-    FormControl,
-    FormControlLabel,
-    InputLabel,
-    MenuItem,
-    Radio,
-    RadioGroup,
-    Select,
-    Typography,
-} from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
-import { countries } from '../../../../data/countries';
 import { formData } from '../../../../data/form-data';
 
 import { useCheckout } from '../../../../hooks/useCheckout.hook';
 
-import { DeliveryType } from '../../../../enums/deliveryTypes.enum';
-import { IClient } from '../../../../interfaces/order/IClient.interface';
-import { IAddress } from '../../../../interfaces/order/IAddress.interface';
-import { IDeliveryInfo } from '../../../../interfaces/order/IDeliveryInfo.interface';
-
-interface IState extends IClient, IAddress, IDeliveryInfo {}
+import { DeliveryType } from '../../../../enums/DeliveryTypes.enum';
 
 import {
     FormContainer,
-    Input,
     InputGroupContainer,
     BuyButton,
 } from '../../styles/CheckoutForm.styles';
 
+import { ConditionalInput } from './components/ConditionalInput/ConditionalInput';
+
 export const CheckoutForm = () => {
-    const { fields, buy, controlProps, onChangeHandler, isButtonDisabled } =
-        useCheckout();
+    const {
+        userInputs,
+        validationErrors,
+        buy,
+        controlProps,
+        onChangeHandler,
+        onBlurHandler,
+        isButtonDisabled,
+    } = useCheckout();
 
     return (
         <FormContainer>
-            <InputGroupContainer>
-                <Typography variant="h5">{formData[0].title}</Typography>
-                <Box
-                    component="form"
-                    sx={{
-                        '& > :not(style)': { m: 1 },
-                    }}
-                    noValidate
-                >
-                    {formData[0].fields.map(
-                        (
-                            { id, name, isRequired, isFullWidth, label },
-                            index
-                        ) => (
-                            <Fragment key={index}>
-                                <Input
-                                    id={id}
-                                    name={name}
-                                    label={label}
-                                    value={fields[name as keyof IState]}
-                                    fullWidth={isFullWidth}
-                                    required={isRequired}
-                                    onChange={onChangeHandler}
-                                    size="small"
-                                    variant="outlined"
-                                    autoComplete="off"
-                                />
-                            </Fragment>
-                        )
-                    )}
-                </Box>
-            </InputGroupContainer>
-            <InputGroupContainer>
-                <Typography variant="h5">Delivery type</Typography>
-                <Box
-                    component="form"
-                    sx={{
-                        '& > :not(style)': { m: 1 },
-                    }}
-                    noValidate
-                >
-                    <FormControl fullWidth>
-                        <RadioGroup row>
-                            <FormControlLabel
-                                control={
-                                    <Radio
-                                        {...controlProps(DeliveryType.courier)}
-                                    />
-                                }
-                                label="Courier delivery"
-                                color="default"
-                            />
-                            <FormControlLabel
-                                control={
-                                    <Radio
-                                        {...controlProps(DeliveryType.shop)}
-                                    />
-                                }
-                                label="Pick up from the shop"
-                                color="default"
-                            />
-                        </RadioGroup>
-                    </FormControl>
-                </Box>
-            </InputGroupContainer>
-
-            {fields.deliveryType === DeliveryType.courier ? (
-                <InputGroupContainer>
-                    <Typography variant="h5">{formData[1].title}</Typography>
+            {formData.checkout.map(({ id, title, fields }, index) => (
+                <InputGroupContainer key={index}>
+                    <Typography variant="h5">{title}</Typography>
                     <Box
                         component="form"
                         sx={{
-                            '& > :not(style)': { m: 1, width: '97%' },
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            width: '90%',
+
+                            '& > :not(style)': { m: 1 },
                         }}
-                        noValidate
+                        autoComplete="on"
                     >
-                        <FormControl fullWidth>
-                            <InputLabel id="country-label">Country</InputLabel>
-                            <Select
-                                labelId="country-label"
-                                required
-                                id="country"
-                                value={fields.country}
-                                name="country"
-                                label="Country"
-                                onChange={onChangeHandler}
-                            >
-                                {countries.map(
-                                    ({ countryLabel, code }, index) => (
-                                        <MenuItem
-                                            key={index}
-                                            value={countryLabel}
-                                        >
-                                            <img
-                                                style={{ marginLeft: '10px' }}
-                                                loading="lazy"
-                                                width="20"
-                                                srcSet={`https://flagcdn.com/w40/${code.toLowerCase()}.png 2x`}
-                                                src={`https://flagcdn.com/w20/${code.toLowerCase()}.png`}
-                                                alt=""
-                                            />
-                                            {`(${code}) ${countryLabel}`}
-                                        </MenuItem>
-                                    )
-                                )}
-                            </Select>
-                        </FormControl>
-                        <FormControl
-                            sx={{
-                                display: 'flex',
-                                flexDirection: 'row',
-                                justifyContent: 'center',
-                                alignContent: 'center',
-                                alignItems: 'center',
-                            }}
-                        >
-                            <Input
-                                id="city"
-                                name="city"
-                                required
-                                label="City"
-                                size="small"
-                                variant="outlined"
-                                onChange={onChangeHandler}
-                                autoComplete="off"
-                                sx={{ width: '50%', mr: 1 }}
-                            />
-                            <Input
-                                id="postalCode"
-                                name="postalCode"
-                                required
-                                label="Postal code"
-                                size="small"
-                                variant="outlined"
-                                onChange={onChangeHandler}
-                                autoComplete="off"
-                                sx={{ width: '50%', ml: 1 }}
-                            />
-                        </FormControl>
-                        <FormControl>
-                            <Input
-                                id="address"
-                                name="address"
-                                required
-                                label="Address"
-                                size="small"
-                                variant="outlined"
-                                onChange={onChangeHandler}
-                                autoComplete="off"
-                            />
-                        </FormControl>
-                        <FormControl>
-                            <Input
-                                id="comment"
-                                name="deliveryComment"
-                                label="Comment"
-                                size="small"
-                                variant="outlined"
-                                onChange={onChangeHandler}
-                            />
-                        </FormControl>
+                        {fields.map((field, index) => (
+                            <Fragment key={`${field.id}-${index}`}>
+                                <ConditionalInput
+                                    formId={id}
+                                    field={field}
+                                    values={userInputs}
+                                    errors={validationErrors}
+                                    onChangeHandler={onChangeHandler}
+                                    onBlurHandler={onBlurHandler}
+                                    controlProps={controlProps}
+                                />
+                            </Fragment>
+                        ))}
                     </Box>
                 </InputGroupContainer>
-            ) : (
+            ))}
+            {userInputs.deliveryType !== DeliveryType.COURIER ? (
                 <InputGroupContainer>
                     <Typography variant="h5">
                         Latvia, Riga, Brivibas street, 5
                     </Typography>
                 </InputGroupContainer>
-            )}
+            ) : null}
             <InputGroupContainer>
                 <BuyButton disabled={isButtonDisabled} onClick={buy}>
                     Buy

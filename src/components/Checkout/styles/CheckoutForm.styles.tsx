@@ -15,10 +15,32 @@ export const InputGroupContainer = styled.div`
     padding: 20px 10px;
 `;
 
+export const StyledTextFieldWrapper = styled.div`
+    @keyframes autofill {
+        to {
+            color: inherit;
+            background: inherit;
+        }
+    }
+
+    input:-webkit-autofill {
+        animation-name: autofill;
+        animation-duration: 0.1s;
+        animation-timing-function: ease-in-out;
+    }
+`;
+
 export const Input = styled(TextField)`
     width: 97% !important;
     margin-right: auto !important;
     margin-left: auto !important;
+
+    .MuiInputBase-root {
+        input:-webkit-autofill {
+            box-shadow: 0 0 0 1000px black inset;
+            -webkit-text-fill-color: white;
+        }
+    }
 `;
 
 const CustomButton = styled(Button)`

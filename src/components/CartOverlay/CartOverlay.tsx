@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { IconButton, Typography } from '@mui/material';
 import { CancelTwoTone } from '@mui/icons-material';
 
-import { CartItem, CartItemList } from '../CartItemList';
+import { CartItemList } from '../CartItemList';
 
 import {
     calculateItemsCount,

@@ -1,4 +1,4 @@
-import { DeliveryType } from '../../enums/deliveryTypes.enum';
+import { DeliveryType } from '../../enums/DeliveryTypes.enum';
 
 export interface IDeliveryInfo {
     deliveryType: DeliveryType;
