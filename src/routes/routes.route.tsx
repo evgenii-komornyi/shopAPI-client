@@ -1,5 +1,5 @@
 import { ReactElement, memo } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
 import { MainPage } from '../pages/main.page';
 import { AboutUsPage } from '../pages/about-us.page';
@@ -27,6 +27,7 @@ const routes: IRoute[] = [
         path: '/thankyou/:clientId/:orderId',
         page: <ThankYouPage />,
     },
+    { path: '*', page: <Navigate to="/" /> },
 ];
 
 const NonMemoizedRoutes = () => {

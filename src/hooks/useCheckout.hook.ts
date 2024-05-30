@@ -17,6 +17,8 @@ import { IControlProps } from '../interfaces/checkout/IControlProps.interface';
 import { useCheckOnErrors } from './useCheckOnErrors.hook';
 import { ICheckoutHookReturns } from '../interfaces/checkout/hook/ICheckoutHookReturns.interface';
 import { IReduceItem } from '../interfaces/checkout/hook/IReduceItem.interface';
+import { IErrorResponse } from '../interfaces/fetch/IErrorResponse.interface';
+import { handleError } from '../helpers/api.helper';
 
 export const useCheckout = (): ICheckoutHookReturns => {
     const { cart, clearCart } = useCartStore(state => state);
@@ -123,7 +125,7 @@ export const useCheckout = (): ICheckoutHookReturns => {
                 navigate(`/thankyou/${clientId}/${orderId}`);
             }
         } catch (err) {
-            console.error(err);
+            handleError(err as Error);
         }
     };
 
