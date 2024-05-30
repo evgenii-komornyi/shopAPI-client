@@ -55,9 +55,14 @@ export const OrderInfo = () => {
                         />
                     )}
                     {isLoaded ? (
-                        <OrderNumberText>
-                            Your order nr. {orderNumber} was created.
-                        </OrderNumberText>
+                        <>
+                            <OrderNumberText>
+                                Your order nr. {orderNumber} was created.
+                            </OrderNumberText>
+                            <OrderNumberText>
+                                We will contact you via email.
+                            </OrderNumberText>
+                        </>
                     ) : (
                         <Skeleton
                             variant="rectangular"

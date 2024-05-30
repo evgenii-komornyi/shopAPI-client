@@ -6,6 +6,7 @@ import { getItemById } from '../api/items.api';
 
 import { IItem } from '../interfaces/IItem.interface';
 import { AxiosResponse } from 'axios';
+import { handleError } from '../helpers/api.helper';
 
 interface IItemState {
     items: IItem[];
@@ -40,6 +41,7 @@ const useItemsStore = create<IItemState>()(
 
                 if (err instanceof Error) {
                     errorMessage = err.message;
+                    handleError(err);
                 }
 
                 console.error('items store: ', errorMessage);
@@ -60,6 +62,7 @@ const useItemsStore = create<IItemState>()(
 
                 if (err instanceof Error) {
                     errorMessage = err.message;
+                    handleError(err);
                 }
 
                 console.error('items store: ', errorMessage);

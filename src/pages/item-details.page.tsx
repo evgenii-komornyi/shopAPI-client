@@ -12,7 +12,7 @@ export const ItemDetailsPage = () => {
 
     useEffect(() => {
         if (itemId) void fetchItemById(itemId);
-    }, [itemId]);
+    }, [itemId, fetchItemById]);
 
     return (
         <Container maxWidth="lg">

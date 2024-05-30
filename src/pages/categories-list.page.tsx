@@ -10,7 +10,7 @@ export const CategoriesListPage = () => {
 
     useEffect(() => {
         getAllCategories();
-    }, []);
+    }, [getAllCategories]);
 
     return (
         <Container maxWidth="lg">

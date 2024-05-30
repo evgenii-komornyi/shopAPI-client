@@ -5,6 +5,7 @@ import { getCategories } from '../api/categories.api';
 
 import { ICategory } from '../interfaces/ICategory.interface';
 import { AxiosResponse } from 'axios';
+import { handleError } from '../helpers/api.helper';
 
 interface ICategoryState {
     categories: ICategory[];
@@ -31,6 +32,7 @@ const useCategoriesStore = create<ICategoryState>()(
 
                 if (err instanceof Error) {
                     errorMessage = err.message;
+                    handleError(err);
                 }
 
                 console.error('items store: ', errorMessage);

@@ -12,7 +12,7 @@ export const CategoryDetailsPage = () => {
 
     useEffect(() => {
         if (typeName) void fetchItemsByType(typeName);
-    }, [typeName]);
+    }, [typeName, fetchItemsByType]);
 
     return (
         <Container maxWidth="lg">
