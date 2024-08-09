@@ -1,6 +1,6 @@
 import { formatPrice } from '../../../../helpers/cart.helper';
 
-import { IOrderItem } from '../../../../interfaces/order/IOrderItem.interface';
+import { IOrderItem } from '../../../../interfaces/entities/IOrderItem.interface';
 
 interface IProps {
     orderItem: IOrderItem;

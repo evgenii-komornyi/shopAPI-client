@@ -17,26 +17,34 @@ import {
     TotalPriceContainer,
     TotalPriceText,
 } from './styles/Checkout.styles';
+import useUserStore from '../../stores/useUser.store';
+import { CheckoutFormLoggedInUser } from './components/CheckoutFormLoggedInUser';
 
 export const Checkout = () => {
     const { cart } = useCartStore(state => state);
+    const { user, getUserById } = useUserStore(state => state);
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (cart.length === 0) navigate('/');
-    }, []);
+        // if (cart[user.id].length === 0) navigate('/');
+        getUserById();
+    }, [cart, navigate, getUserById, user.id]);
 
     return (
         <Grid container spacing={5} sx={{ mt: 4 }}>
             <Grid item xs={12} sm={12} md={6}>
                 <FormContainer>
-                    <CheckoutForm />
+                    {user.id === 0 ? (
+                        <CheckoutForm />
+                    ) : (
+                        <CheckoutFormLoggedInUser />
+                    )}
                 </FormContainer>
             </Grid>
             <Grid item xs={12} sm={12} md={6} sx={{ mt: 4 }}>
                 <CartContainer>
                     <CartItemsContainer>
-                        {cart.map((cartItem, index) => (
+                        {cart[user.id].map((cartItem, index) => (
                             <Fragment key={index}>
                                 <CheckoutItem cartItem={cartItem} />
                             </Fragment>
@@ -48,7 +56,10 @@ export const Checkout = () => {
                         </TotalPriceText>
                         <TotalPrice variant="h6">
                             &euro;{' '}
-                            {calculateTotalPrice(cart, 'actual').toFixed(2)}
+                            {calculateTotalPrice(
+                                cart[user.id],
+                                'actual'
+                            ).toFixed(2)}
                         </TotalPrice>
                     </TotalPriceContainer>
                 </CartContainer>

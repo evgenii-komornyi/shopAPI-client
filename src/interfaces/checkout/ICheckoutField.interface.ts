@@ -1,5 +1,5 @@
-import { IAddress } from '../order/IAddress.interface';
-import { IClient } from '../order/IClient.interface';
-import { IDeliveryInfo } from '../order/IDeliveryInfo.interface';
+import { IAddress } from '../entities/IAddress.interface';
+import { IClient } from '../entities/IClient.interface';
+import { IDeliveryInfo } from '../entities/IDeliveryInfo.interface';
 
 export interface ICheckoutField extends IClient, IAddress, IDeliveryInfo {}

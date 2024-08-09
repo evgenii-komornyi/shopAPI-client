@@ -15,8 +15,8 @@ export const handleError = (err: Error): void => {
     if (axiosError.response) {
         const { data } = axiosError.response;
 
-        alert(data.error);
+        console.log(data.error);
     } else {
-        alert('An unexpected error occurred.');
+        console.log('An unexpected error occurred.');
     }
 };

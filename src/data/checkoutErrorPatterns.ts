@@ -11,6 +11,18 @@ export const errorPatterns: ErrorPatterns = {
         emptyValueError: Errors.EMPTY_FIELD,
         wrongFormatError: Errors.EMAIL_WRONG_FORMAT,
     },
+    password: {
+        emptyValue: emptyValueRegexExpression,
+        wrongFormat:
+            /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^*()_+\-=[\]{};:,.?])[A-Za-z\d!@#$%^*()_+\-=[\]{};:,.?]{8,100}$/,
+        emptyValueError: Errors.EMPTY_FIELD,
+        wrongFormatError: Errors.EASY_PASSWORD_WRONG_FORMAT,
+    },
+    passwordConfirmation: {
+        emptyValue: emptyValueRegexExpression,
+        emptyValueError: Errors.EMPTY_FIELD,
+        passwordsDoesNotMatches: Errors.PASSWORDS_DOES_NOT_MATCH,
+    },
     firstName: {
         emptyValue: emptyValueRegexExpression,
         wrongFormat: new RegExp(`^${unicodeLetterPattern}+$`, 'u'),
