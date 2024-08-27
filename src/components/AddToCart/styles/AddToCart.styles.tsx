@@ -15,7 +15,7 @@ export const CustomAddToCartButton = styled(Button)`
     width: 100% !important;
     height: 70px !important;
     color: white !important;
-    letter-spacing: 5 !important;
+    letter-spacing: 5px !important;
     border: 1px solid white !important;
     background-color: transparent !important;
 `;
