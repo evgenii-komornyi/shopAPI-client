@@ -7,8 +7,6 @@ import { IFormField } from '../interfaces/IFormField.interface';
 import { IPasswordTypeVisibility } from '../interfaces/IPasswordTypeVisibility.interface';
 import { DeliveryType } from '../enums/DeliveryTypes.enum';
 import { IOrderInfo } from '../interfaces/entities/IOrderInfo.interface';
-import { formatPrice } from '../helpers/cart.helper';
-import { IReduceItem } from '../interfaces/checkout/hook/IReduceItem.interface';
 import { AxiosResponse } from 'axios';
 import { ICreateOrderResponse } from '../interfaces/entities/ICreateOrderResponse.interface';
 import { handleError } from '../helpers/api.helper';
@@ -20,17 +18,24 @@ import useAuthStore from '../stores/useAuth.store';
 import useUserStore from '../stores/useUser.store';
 import { IOrderRequest } from '../interfaces/entities/requests/order/IOrderRequest';
 import { getCookie } from '../helpers/cookie.helper';
-import useOrderStore from '../stores/useOrder.store';
+
 import {
     createOrder as createOrderForAnonymousUserApi,
     createSecuredOrder,
 } from '../api/orders.api';
 import { OrderResponse } from '../interfaces/entities/responses/order/OrderResponse';
+import useDeliveryStore from '../stores/useDelivery.store';
 
 export const useForm = (isCheckoutForm: boolean): IFormHookReturns => {
     const { cart, clearCart } = useCartStore(state => state);
     const { user } = useUserStore(state => state);
     const { registerUser, message } = useAuthStore(state => state);
+    const {
+        price: deliveryPrice,
+        country: deliveryCountry,
+        getDeliveryPriceByCountry,
+        setShowDeliveryPrice,
+    } = useDeliveryStore(state => state);
     const navigate = useNavigate();
 
     const [fieldType, setFieldType] = useState<IPasswordTypeVisibility>({
@@ -99,6 +104,20 @@ export const useForm = (isCheckoutForm: boolean): IFormHookReturns => {
             });
         }
     }, [user]);
+
+    useEffect(() => {
+        if (userInputs.country) getDeliveryPriceByCountry(userInputs.country);
+        if (userInputs.deliveryType === DeliveryType.SHOP) {
+            setShowDeliveryPrice(false);
+        } else {
+            setShowDeliveryPrice(true);
+        }
+    }, [
+        getDeliveryPriceByCountry,
+        setShowDeliveryPrice,
+        userInputs.country,
+        userInputs.deliveryType,
+    ]);
 
     const { validationErrors, checkFieldValueByName, isButtonDisabled } =
         useCheckOnErrors(userInputs, isCheckoutForm);
@@ -202,6 +221,10 @@ export const useForm = (isCheckoutForm: boolean): IFormHookReturns => {
             orderInfo: {
                 deliveryType,
                 deliveryComment,
+                ...(deliveryType !== DeliveryType.SHOP && {
+                    deliveryPrice,
+                    deliveryCountry,
+                }),
             },
             cart: cart[user.id].map(({ itemId, actualPrice, quantity }) => ({
                 itemId,
@@ -247,6 +270,10 @@ export const useForm = (isCheckoutForm: boolean): IFormHookReturns => {
             orderInfo: {
                 deliveryType,
                 deliveryComment,
+                ...(deliveryType !== DeliveryType.SHOP && {
+                    deliveryPrice,
+                    deliveryCountry,
+                }),
             },
             cart: cart[user.id].map(({ itemId, actualPrice, quantity }) => ({
                 itemId,
