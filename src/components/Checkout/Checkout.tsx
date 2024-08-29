@@ -19,10 +19,12 @@ import {
 } from './styles/Checkout.styles';
 import useUserStore from '../../stores/useUser.store';
 import { CheckoutFormLoggedInUser } from './components/CheckoutFormLoggedInUser';
+import useDeliveryStore from '../../stores/useDelivery.store';
 
 export const Checkout = () => {
     const { cart } = useCartStore(state => state);
     const { user, getUserById } = useUserStore(state => state);
+    const { price, showDeliveryPrice } = useDeliveryStore(state => state);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -50,6 +52,14 @@ export const Checkout = () => {
                             </Fragment>
                         ))}
                     </CartItemsContainer>
+                    {showDeliveryPrice ? (
+                        <TotalPriceContainer>
+                            <TotalPriceText variant="h6">
+                                delivery price
+                            </TotalPriceText>
+                            <TotalPrice variant="h6">&euro; {price}</TotalPrice>
+                        </TotalPriceContainer>
+                    ) : null}
                     <TotalPriceContainer>
                         <TotalPriceText variant="h6">
                             total price
@@ -58,7 +68,8 @@ export const Checkout = () => {
                             &euro;{' '}
                             {calculateTotalPrice(
                                 cart[user.id],
-                                'actual'
+                                'actual',
+                                showDeliveryPrice ? +price : 0
                             ).toFixed(2)}
                         </TotalPrice>
                     </TotalPriceContainer>
