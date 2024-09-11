@@ -14,6 +14,7 @@ import { AuthPage } from '../pages/auth.page';
 import { VerificationPage } from '../pages/verification.page';
 import { OrdersPage } from '../pages/orders.page';
 import { ProfilePage } from '../pages/profile.page';
+import { AdminPage } from '../pages/admin.page';
 
 interface IRoute {
     path: string;
@@ -40,6 +41,10 @@ const routes: IRoute[] = [
     {
         path: '/thankyou/:orderId',
         page: <ThankYouPage />,
+    },
+    {
+        path: '/admin',
+        page: <AdminPage />,
     },
     { path: '*', page: <Navigate to="/" /> },
 ];
