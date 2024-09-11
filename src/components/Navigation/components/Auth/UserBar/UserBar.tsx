@@ -11,6 +11,7 @@ import {
 import useAuthStore from '../../../../../stores/useAuth.store';
 import {
     AccountCircleOutlined,
+    DashboardRounded,
     Logout,
     SettingsOutlined,
     ShoppingBagOutlined,
@@ -84,6 +85,17 @@ export const UserBar = () => {
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
+                {user.roles.includes('ADMIN') ? (
+                    <div>
+                        <MenuItem onClick={() => goTo('/admin')}>
+                            <ListItemIcon>
+                                <DashboardRounded fontSize="small" />
+                            </ListItemIcon>
+                            Admin Panel
+                        </MenuItem>
+                        <Divider />
+                    </div>
+                ) : null}
                 <MenuItem onClick={() => goTo(`/profile`)}>
                     <ListItemIcon>
                         <AccountCircleOutlined fontSize="small" />

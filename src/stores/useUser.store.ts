@@ -60,6 +60,7 @@ const initialUserState: UserDetailsDTO = {
     lastLoginAt: '',
     isActive: false,
     isVerified: false,
+    roles: [],
     client: initialClient,
 };
 

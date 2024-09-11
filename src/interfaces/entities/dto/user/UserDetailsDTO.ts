@@ -9,5 +9,6 @@ export interface UserDetailsDTO {
     isActive: boolean;
     isVerified: boolean;
     uUserId: string;
+    roles: string[];
     client: ClientDetailsDTO;
 }

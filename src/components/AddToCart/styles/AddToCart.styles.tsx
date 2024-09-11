@@ -18,4 +18,10 @@ export const CustomAddToCartButton = styled(Button)`
     letter-spacing: 5px !important;
     border: 1px solid white !important;
     background-color: transparent !important;
+    transition: box-shadow 0.5s linear !important;
+
+    &:hover {
+        box-shadow: 1px 1px 10px rgba(255, 255, 255, 0.8);
+        transition: box-shadow 0.5s linear;
+    }
 `;

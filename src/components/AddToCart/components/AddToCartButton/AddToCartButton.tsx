@@ -14,6 +14,7 @@ export const AddToCartButton = ({ item }: IProps) => {
     const { user } = useUserStore(state => state);
 
     const addToCartHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.stopPropagation();
         e.preventDefault();
         addItem(item, user.id);
     };
