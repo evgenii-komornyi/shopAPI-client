@@ -16,6 +16,27 @@ export const UserInfo = () => {
             <UserInfoFieldset>
                 <Legend>User info</Legend>
                 <DataContainer>
+                    <Typography variant="h6">Roles:</Typography>
+                    <>
+                        {user.roles.length === 0 ? (
+                            <Chip
+                                sx={{ letterSpacing: 2 }}
+                                label="User"
+                                variant="outlined"
+                            />
+                        ) : (
+                            user.roles.map((role, index) => (
+                                <Chip
+                                    key={index}
+                                    variant="outlined"
+                                    sx={{ letterSpacing: 2 }}
+                                    label={`${role[0]}${role.slice(1).toLowerCase()}`}
+                                />
+                            ))
+                        )}
+                    </>
+                </DataContainer>
+                <DataContainer>
                     <Typography variant="h6">Email:</Typography>
                     <Chip
                         sx={{ letterSpacing: 2 }}
