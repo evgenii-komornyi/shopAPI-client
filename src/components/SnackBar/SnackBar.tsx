@@ -1,11 +1,15 @@
 import { Fragment } from 'react';
-import { Snackbar, IconButton, Alert } from '@mui/material';
+import { Snackbar, IconButton, Alert, AlertColor } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
 import { useSnackbar } from '../../hooks/useSnackbar.hook';
 import { ISnackbarHookReturn } from '../../interfaces/ISnackbarHookReturn';
 
-export const SnackBar = () => {
+interface IProps {
+    severity?: AlertColor;
+}
+
+export const SnackBar = ({ severity = 'success' }: IProps) => {
     const {
         handleClose,
         isSnackbarOpened,
@@ -30,11 +34,12 @@ export const SnackBar = () => {
             open={isSnackbarOpened}
             autoHideDuration={10000}
             onClose={handleClose}
+            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
             action={action}
         >
             <Alert
                 onClose={handleClose}
-                severity="success"
+                severity={severity}
                 variant="filled"
                 sx={{ width: '100%' }}
             >
