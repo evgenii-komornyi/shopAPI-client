@@ -1,4 +1,10 @@
-import { Link, useNavigate } from 'react-router-dom';
+import {
+    Link,
+    Location,
+    NavigateFunction,
+    useLocation,
+    useNavigate,
+} from 'react-router-dom';
 import {
     AppBar,
     Box,
@@ -22,122 +28,128 @@ import { Auth } from '../Navigation/components/Auth/Auth';
 
 export const Navigation = () => {
     const { anchor, handleOpen, handleClose } = useAnchor();
-    const navigate = useNavigate();
+    const navigate: NavigateFunction = useNavigate();
+    const { pathname }: Location = useLocation();
 
     return (
-        <AppBar position="static" style={{ background: '#000000' }}>
-            <Container maxWidth="lg">
-                <Toolbar disableGutters>
-                    <Box
-                        sx={{
-                            flexGrow: 1,
-                            display: { xs: 'none', md: 'flex' },
-                        }}
-                        onClick={() => navigate('/')}
-                    >
-                        <SetMealTwoTone
-                            sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}
-                        />
-                    </Box>
-                    <Box
-                        sx={{
-                            flexGrow: 1,
-                            display: { xs: 'flex', md: 'none' },
-                        }}
-                    >
-                        <IconButton
-                            size="large"
-                            aria-label="account of current user"
-                            aria-controls="menu-appbar"
-                            aria-haspopup="true"
-                            onClick={handleOpen}
-                            color="inherit"
-                        >
-                            <MenuIcon />
-                        </IconButton>
-                        <Menu
-                            id="menu-appbar"
-                            anchorEl={anchor}
-                            anchorOrigin={{
-                                vertical: 'bottom',
-                                horizontal: 'left',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'left',
-                            }}
-                            open={Boolean(anchor)}
-                            onClose={handleClose}
+        !pathname.includes('admin') && (
+            <AppBar position="static" style={{ background: '#000000' }}>
+                <Container maxWidth="lg">
+                    <Toolbar disableGutters>
+                        <Box
                             sx={{
-                                display: { xs: 'block', md: 'none' },
+                                flexGrow: 1,
+                                display: { xs: 'none', md: 'flex' },
+                            }}
+                            onClick={() => navigate('/')}
+                        >
+                            <SetMealTwoTone
+                                sx={{
+                                    display: { xs: 'none', md: 'flex' },
+                                    mr: 1,
+                                }}
+                            />
+                        </Box>
+                        <Box
+                            sx={{
+                                flexGrow: 1,
+                                display: { xs: 'flex', md: 'none' },
+                            }}
+                        >
+                            <IconButton
+                                size="large"
+                                aria-label="account of current user"
+                                aria-controls="menu-appbar"
+                                aria-haspopup="true"
+                                onClick={handleOpen}
+                                color="inherit"
+                            >
+                                <MenuIcon />
+                            </IconButton>
+                            <Menu
+                                id="menu-appbar"
+                                anchorEl={anchor}
+                                anchorOrigin={{
+                                    vertical: 'bottom',
+                                    horizontal: 'left',
+                                }}
+                                keepMounted
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'left',
+                                }}
+                                open={Boolean(anchor)}
+                                onClose={handleClose}
+                                sx={{
+                                    display: { xs: 'block', md: 'none' },
+                                }}
+                            >
+                                {menuItems.map(page => (
+                                    <Link
+                                        style={{
+                                            textDecoration: 'none',
+                                            color: '#fff',
+                                        }}
+                                        key={page.title}
+                                        to={page.path}
+                                    >
+                                        <MenuItem onClick={handleClose}>
+                                            <Typography textAlign="center">
+                                                {page.title.toUpperCase()}
+                                            </Typography>
+                                        </MenuItem>
+                                    </Link>
+                                ))}
+                            </Menu>
+                        </Box>
+                        <SetMealTwoTone
+                            sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }}
+                        />
+                        <Typography
+                            variant="h5"
+                            noWrap
+                            sx={{
+                                mr: 2,
+                                display: { xs: 'flex', md: 'none' },
+                                flexGrow: 1,
+                                fontFamily: 'monospace',
+                                fontWeight: 700,
+                                letterSpacing: '.3rem',
+                                color: 'inherit',
+                                textDecoration: 'none',
+                            }}
+                        >
+                            BETTA FISH
+                        </Typography>
+                        <Box
+                            sx={{
+                                flexGrow: 1,
+                                display: { xs: 'none', md: 'flex' },
                             }}
                         >
                             {menuItems.map(page => (
-                                <Link
-                                    style={{
-                                        textDecoration: 'none',
-                                        color: '#fff',
-                                    }}
-                                    key={page.title}
-                                    to={page.path}
-                                >
-                                    <MenuItem onClick={handleClose}>
-                                        <Typography textAlign="center">
-                                            {page.title.toUpperCase()}
-                                        </Typography>
-                                    </MenuItem>
-                                </Link>
+                                <StyledNavLink key={page.title} to={page.path}>
+                                    {page.title.toUpperCase()}
+                                </StyledNavLink>
                             ))}
-                        </Menu>
-                    </Box>
-                    <SetMealTwoTone
-                        sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }}
-                    />
-                    <Typography
-                        variant="h5"
-                        noWrap
-                        sx={{
-                            mr: 2,
-                            display: { xs: 'flex', md: 'none' },
-                            flexGrow: 1,
-                            fontFamily: 'monospace',
-                            fontWeight: 700,
-                            letterSpacing: '.3rem',
-                            color: 'inherit',
-                            textDecoration: 'none',
-                        }}
-                    >
-                        BETTA FISH
-                    </Typography>
-                    <Box
-                        sx={{
-                            flexGrow: 1,
-                            display: { xs: 'none', md: 'flex' },
-                        }}
-                    >
-                        {menuItems.map(page => (
-                            <StyledNavLink key={page.title} to={page.path}>
-                                {page.title.toUpperCase()}
-                            </StyledNavLink>
-                        ))}
-                    </Box>
+                        </Box>
 
-                    <Box
-                        sx={{
-                            flexGrow: 1,
-                            display: 'flex',
-                            flexDirection: 'row',
-                            justifyContent: 'center',
-                            alignContent: 'center',
-                            alignItems: 'center',
-                        }}
-                    >
-                        <Auth />
-                        <CartIcon />
-                    </Box>
-                </Toolbar>
-            </Container>
-        </AppBar>
+                        <Box
+                            sx={{
+                                flexGrow: 1,
+                                display: 'flex',
+                                flexDirection: 'row',
+                                justifyContent: 'center',
+                                alignContent: 'center',
+                                alignItems: 'center',
+                            }}
+                        >
+                            <Auth />
+                            <CartIcon />
+                        </Box>
+                    </Toolbar>
+                </Container>
+            </AppBar>
+        )
     );
 };

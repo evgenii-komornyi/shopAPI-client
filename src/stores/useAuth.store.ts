@@ -34,6 +34,7 @@ interface IAuthState {
 const initialAuthState: AuthDetailsDTO = {
     id: 0,
     uUserId: '',
+    roles: [],
     client: {
         id: 0,
         uClientId: '',

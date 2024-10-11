@@ -6,7 +6,7 @@ export interface ClientDetailsDTO {
     lastName: string;
     email?: string;
     phoneNumber: string;
-    uClientId: string;
+    uClientId?: string;
     address?: AddressDetailsDTO;
     userId?: number;
 }

@@ -15,13 +15,15 @@ import { VerificationPage } from '../pages/verification.page';
 import { OrdersPage } from '../pages/orders.page';
 import { ProfilePage } from '../pages/profile.page';
 import { AdminPage } from '../pages/admin.page';
+import { AdminPanelPage } from '../pages/admin/admin-panel.page';
+import { AdminOrdersPage } from '../pages/admin/admin-orders.page';
 
 interface IRoute {
     path: string;
     page: ReactElement;
 }
 
-const routes: IRoute[] = [
+const mainRoutes: IRoute[] = [
     { path: '/', page: <MainPage /> },
     { path: '/auth', page: <AuthPage /> },
     { path: '/collection', page: <CategoriesListPage /> },
@@ -42,19 +44,26 @@ const routes: IRoute[] = [
         path: '/thankyou/:orderId',
         page: <ThankYouPage />,
     },
-    {
-        path: '/admin',
-        page: <AdminPage />,
-    },
     { path: '*', page: <Navigate to="/" /> },
+];
+
+const adminRoutes: IRoute[] = [
+    { path: '', page: <AdminPanelPage /> },
+    { path: 'orders', page: <AdminOrdersPage /> },
 ];
 
 const NonMemoizedRoutes = () => {
     return (
         <Routes>
-            {routes.map(({ path, page }, index) => (
+            {mainRoutes.map(({ path, page }, index) => (
                 <Route key={index} path={path} element={page} />
             ))}
+
+            <Route path="/admin" element={<AdminPage />}>
+                {adminRoutes.map(({ path, page }, index) => (
+                    <Route key={index} path={path} element={page} />
+                ))}
+            </Route>
         </Routes>
     );
 };
