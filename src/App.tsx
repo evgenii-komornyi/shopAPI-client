@@ -15,6 +15,9 @@ import useUserStore from './stores/useUser.store';
 
 const darkTheme = createTheme({
     palette: {
+        background: {
+            default: '#000000',
+        },
         mode: 'dark',
     },
 });

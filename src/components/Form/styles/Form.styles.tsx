@@ -34,13 +34,13 @@ export const Input = styled(TextField)<{
     $isPersonalInfo: boolean;
     $isAddressInfo: boolean;
 }>`
-    width: 97% !important;
-    margin-right: auto !important;
-    margin-left: auto !important;
-    margin-top: ${props =>
-        props.$isPersonalInfo || props.$isAddressInfo
-            ? '10px !important'
-            : '2px !important'};
+    && {
+        width: 97%;
+        margin-right: auto;
+        margin-left: auto;
+        margin-top: ${props =>
+            props.$isPersonalInfo || props.$isAddressInfo ? '10px' : '2px'};
+    }
 
     .MuiInputBase-root {
         input:-webkit-autofill {
@@ -51,23 +51,28 @@ export const Input = styled(TextField)<{
 `;
 
 const CustomButton = styled(Button)`
-    width: 80% !important;
-    height: 50px !important;
-    border: 1px solid white !important;
-    color: white !important;
-    margin-right: auto !important;
-    margin-left: auto !important;
-    letter-spacing: 3px !important;
+    && {
+        width: 80%;
+        height: 50px;
+        border: 1px solid white;
+        color: white;
+        margin-right: auto;
+        margin-left: auto;
+        letter-spacing: 3px;
+    }
 `;
 
 export const BuyButton = styled(CustomButton)<{ $disabled?: boolean }>`
-    background-color: ${props =>
-        props.disabled ? 'gray' : 'white'} !important;
-    color: ${props => (props.disabled ? 'darkslategray' : 'black')} !important;
-    font-weight: bold !important;
+    && {
+        background-color: ${props => (props.disabled ? 'gray' : 'white')};
+        color: ${props => (props.disabled ? 'darkslategray' : 'black')};
+        font-weight: bold;
+    }
 
     &:hover {
-        background-color: black !important;
-        color: white !important;
+        && {
+            background-color: black;
+            color: white;
+        }
     }
 `;

@@ -26,21 +26,28 @@ export const ShakingInput = styled(TextField)`
 `;
 
 const CustomButton = styled(Button)`
-    width: 50% !important;
-    height: 40px !important;
-    color: white !important;
-    margin-right: auto !important;
-    margin-left: auto !important;
-    letter-spacing: 3px !important;
+    && {
+        width: 50%;
+        height: 40px;
+        color: white;
+        margin-right: auto;
+        margin-left: auto;
+        letter-spacing: 3px;
+    }
 `;
 
 export const SaveButton = styled(CustomButton)`
-    background-color: transparent !important;
-    font-weight: bold !important;
+    && {
+        background-color: transparent;
+        font-weight: bold;
+    }
     box-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
     transition: box-shadow ease-in 0.2s;
 
     &:hover {
+        && {
+            background-color: transparent;
+        }
         box-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
         transition: box-shadow ease-in 0.2s;
     }

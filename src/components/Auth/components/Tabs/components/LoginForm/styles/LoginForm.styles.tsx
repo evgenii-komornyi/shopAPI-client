@@ -42,31 +42,39 @@ export const InputGroupContainer = styled.div`
 `;
 
 const CustomButton = styled(Button)`
-    width: 80% !important;
-    height: 50px !important;
-    border: 1px solid white !important;
-    color: white !important;
-    margin-right: auto !important;
-    margin-left: auto !important;
-    letter-spacing: 3px !important;
+    && {
+        width: 80%;
+        height: 50px;
+        border: 1px solid white;
+        color: white;
+        margin-right: auto;
+        margin-left: auto;
+        letter-spacing: 3px;
+    }
 `;
 
 export const LoginButton = styled(CustomButton)<{ $disabled?: boolean }>`
-    background-color: white !important;
-    color: black !important;
-    font-weight: bold !important;
+    && {
+        background-color: white;
+        color: black;
+        font-weight: bold;
+    }
 
     &:hover {
-        background-color: black !important;
-        color: white !important;
+        && {
+            background-color: black;
+            color: white;
+        }
     }
 `;
 
 export const Input = styled(TextField)`
-    width: 97% !important;
-    margin-right: auto !important;
-    margin-left: auto !important;
-    margin-top: 10px !important;
+    && {
+        width: 97%;
+        margin-right: auto;
+        margin-left: auto;
+        margin-top: 10px;
+    }
 
     .MuiInputBase-root {
         input:-webkit-autofill {
