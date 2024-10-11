@@ -15,14 +15,16 @@ import {
     CartItemRegularPrice,
 } from './styles/CartItemList.styles';
 import useCartStore from '../../stores/useCart.store';
+import useUserStore from '../../stores/useUser.store';
 
 const { VITE_HOST_URL, VITE_HOST_PORT, VITE_IMAGES_URL, VITE_FISH_IMAGES_URL } =
     import.meta.env;
 
 const CartItems = () => {
     const { cart } = useCartStore(state => state);
+    const { user } = useUserStore(state => state);
 
-    return cart.map(cartItem => (
+    return cart[user.id].map(cartItem => (
         <CartItemContainer key={cartItem.itemId}>
             <CartItemInfoContainer>
                 <CartItemNameSexText variant="h5">

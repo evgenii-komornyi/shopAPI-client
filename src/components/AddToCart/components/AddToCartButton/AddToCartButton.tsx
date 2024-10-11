@@ -7,13 +7,16 @@ interface IProps {
 }
 
 import { CustomAddToCartButton } from '../../styles/AddToCart.styles';
+import useUserStore from '../../../../stores/useUser.store';
 
 export const AddToCartButton = ({ item }: IProps) => {
     const { addItem } = useCartStore();
+    const { user } = useUserStore(state => state);
 
     const addToCartHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.stopPropagation();
         e.preventDefault();
-        addItem(item);
+        addItem(item, user.id);
     };
 
     return (

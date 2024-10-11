@@ -14,9 +14,11 @@ export const StyledBadge = muiStyled(Badge)<BadgeProps>(({ theme }) => ({
 }));
 
 export const CartContainer = styled(Box)`
-    height: 100vh !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important;
-    align-items: center !important;
+    && {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
 `;

@@ -9,14 +9,15 @@ import { DeliveryType } from '../enums/DeliveryTypes.enum';
 import { Errors } from '../enums/Errors.enum';
 import { UserInputsValidationErrors } from '../types/UserInputsValidationErrors.type';
 import { UserInputsValidation } from '../types/UserInputsValidation.type';
-import { ICheckoutField } from '../interfaces/checkout/ICheckoutField.interface';
+import { IFormField } from '../interfaces/IFormField.interface';
 import { IValidationErrorState } from '../interfaces/checkout/error/IValidationErrorState.interface';
 import { IValidationPattern } from '../interfaces/checkout/error/IValidationPattern.interface';
 import { ICheckOnErrorsHookReturns } from '../interfaces/checkout/hook/ICheckOnErrorsHookReturns.interface';
 import { IValidationState } from '../interfaces/checkout/error/IValidationState.interface';
 
 export const useCheckOnErrors = (
-    userInputs: ICheckoutField
+    userInputs: IFormField,
+    isCheckoutForm: boolean
 ): ICheckOnErrorsHookReturns => {
     const initialValidationErrorState: IValidationErrorState = {
         errors: [],
@@ -24,6 +25,8 @@ export const useCheckOnErrors = (
     const [userInputsValidationErrors, setUserInputsValidationErrors] =
         useState<UserInputsValidationErrors>({
             email: initialValidationErrorState,
+            password: initialValidationErrorState,
+            passwordConfirmation: initialValidationErrorState,
             firstName: initialValidationErrorState,
             lastName: initialValidationErrorState,
             phoneNumber: initialValidationErrorState,
@@ -39,6 +42,8 @@ export const useCheckOnErrors = (
     const [isUserInputsValidated, setIsUserInputsValidated] =
         useState<UserInputsValidation>({
             email: initialValidationState,
+            password: initialValidationState,
+            passwordConfirmation: initialValidationState,
             firstName: initialValidationState,
             lastName: initialValidationState,
             phoneNumber: initialValidationState,
@@ -49,7 +54,11 @@ export const useCheckOnErrors = (
 
     const validateValue = useCallback(
         (value: string, pattern: IValidationPattern): Errors[] => {
-            const country: string = userInputs.country;
+            const country: string | undefined = userInputs.country;
+            const password: string | undefined = userInputs.password;
+            const passwordConfirmation: string | undefined =
+                userInputs.passwordConfirmation;
+
             const regexPattern: RegExp | undefined = Array.isArray(
                 pattern.wrongFormat
             )
@@ -61,6 +70,14 @@ export const useCheckOnErrors = (
             if (pattern.emptyValue.test(value)) {
                 errors.push(pattern.emptyValueError);
             }
+
+            if (
+                pattern.passwordsDoesNotMatches &&
+                password !== passwordConfirmation
+            ) {
+                errors.push(pattern.passwordsDoesNotMatches);
+            }
+
             if (
                 !pattern.emptyValue.test(value) &&
                 regexPattern &&
@@ -71,7 +88,11 @@ export const useCheckOnErrors = (
 
             return errors;
         },
-        [userInputs.country]
+        [
+            userInputs.country,
+            userInputs.password,
+            userInputs.passwordConfirmation,
+        ]
     );
 
     const checkFieldValueByName = useCallback(
@@ -79,12 +100,13 @@ export const useCheckOnErrors = (
             if (
                 fieldToCheck === 'deliveryType' ||
                 fieldToCheck === 'deliveryComment' ||
-                fieldToCheck === 'country'
+                fieldToCheck === 'country' ||
+                fieldToCheck === ' passwordConfirmation'
             ) {
                 return;
             }
 
-            const pattern = errorPatterns[fieldToCheck];
+            const pattern: IValidationPattern = errorPatterns[fieldToCheck];
 
             if (!pattern) {
                 console.warn(
@@ -110,11 +132,27 @@ export const useCheckOnErrors = (
     );
 
     const isButtonDisabled = !Object.entries(isUserInputsValidated)
-        .filter(
-            ([key]) =>
-                userInputs.deliveryType === DeliveryType.COURIER ||
-                !['city', 'postalCode', 'address'].includes(key)
-        )
+        .filter(([key]) => {
+            if (!isCheckoutForm) {
+                return true;
+            } else if (
+                isCheckoutForm &&
+                userInputs.deliveryType === DeliveryType.COURIER
+            ) {
+                return !['password', 'passwordConfirmation'].includes(key);
+            } else if (
+                isCheckoutForm &&
+                userInputs.deliveryType !== DeliveryType.COURIER
+            ) {
+                return ![
+                    'city',
+                    'postalCode',
+                    'address',
+                    'password',
+                    'passwordConfirmation',
+                ].includes(key);
+            }
+        })
         .every(([, validation]) => validation.isValidated);
 
     return {

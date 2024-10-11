@@ -50,7 +50,9 @@ export const OrderItemNameSexContainer = styled.div`
 `;
 
 export const OrderItemNameSexText = styled.p`
-    font-size: 12px !important;
+    && {
+        font-size: 12px;
+    }
 `;
 
 export const OrderItemActualPriceContainer = styled.div`

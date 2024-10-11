@@ -83,27 +83,35 @@ export const CartPriceContainer = styled.div`
 `;
 
 export const CartTotalPriceText = styled(Typography)`
-    font-size: 12px !important;
-    font-weight: bold !important;
-    letter-spacing: 3px !important;
-    text-transform: uppercase !important;
+    && {
+        font-size: 12px;
+        font-weight: bold;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+    }
 `;
 
 export const CartTotalPrice = styled(Typography)`
-    font-size: 2rem !important;
-    font-weight: bold !important;
+    && {
+        font-size: 2rem;
+        font-weight: bold;
+    }
 `;
 
 export const CartSavedPriceText = styled(Typography)`
-    font-size: 12px !important;
-    font-weight: bold !important;
-    letter-spacing: 3px !important;
-    text-transform: uppercase !important;
+    && {
+        font-size: 12px;
+        font-weight: bold;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+    }
 `;
 
 export const CartSavedPrice = styled(Typography)`
-    font-size: 2rem !important;
-    font-weight: bold !important;
+    && {
+        font-size: 2rem;
+        font-weight: bold;
+    }
 `;
 
 export const CartFooterButtonsContainer = styled.div`
@@ -118,27 +126,35 @@ export const CartFooterButtonsContainer = styled.div`
 `;
 
 const CustomButton = styled(Button)`
-    width: 48% !important;
-    height: 70px !important;
-    border: 1px solid white !important;
-    color: white !important;
-    letter-spacing: 3px !important;
+    && {
+        width: 48%;
+        height: 70px;
+        border: 1px solid white;
+        color: white;
+        letter-spacing: 3px;
+    }
 `;
 
 export const CartCheckoutButton = styled(CustomButton)`
-    background-color: white !important;
-    color: black !important;
-    font-weight: bold !important;
+    && {
+        background-color: white;
+        color: black;
+        font-weight: bold;
+    }
 
     &:hover {
-        background-color: black !important;
-        color: white !important;
+        && {
+            background-color: black;
+            color: white;
+        }
     }
 `;
 
 export const CartClearButton = styled(CustomButton)`
     &:hover {
-        background-color: transparent !important;
-        box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.5) !important;
+        && {
+            background-color: transparent;
+            box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.5);
+        }
     }
 `;

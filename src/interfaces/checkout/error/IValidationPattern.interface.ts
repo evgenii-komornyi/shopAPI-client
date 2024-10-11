@@ -5,4 +5,5 @@ export interface IValidationPattern {
     wrongFormat?: RegExp | RegExp[];
     emptyValueError: Errors;
     wrongFormatError?: Errors;
+    passwordsDoesNotMatches?: Errors;
 }

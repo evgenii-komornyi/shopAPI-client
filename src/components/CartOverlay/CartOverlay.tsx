@@ -27,12 +27,14 @@ import {
     CartTotalPrice,
     CartTotalPriceText,
 } from './styles/CartOverlay.styles';
+import useUserStore from '../../stores/useUser.store';
 
 export const CartOverlay = () => {
     const { cart, clearCart } = useCartStore(state => state);
+    const { user } = useUserStore(state => state);
 
     const removeAllItems = (event: React.MouseEvent) => {
-        clearCart();
+        clearCart(user.id);
         event.stopPropagation();
     };
 
@@ -42,15 +44,18 @@ export const CartOverlay = () => {
         navigate('/checkout');
     };
 
-    const itemsCount: number = useMemo(() => calculateItemsCount(cart), [cart]);
+    const itemsCount: number = useMemo(
+        () => calculateItemsCount(cart[user.id]),
+        [cart, user.id]
+    );
     const totalPrice: number = useMemo(
-        () => calculateTotalPrice(cart, 'actual'),
-        [cart]
+        () => calculateTotalPrice(cart[user.id], 'actual'),
+        [cart, user.id]
     );
     const savedPrice: number = useMemo(() => {
-        const regularPrice = calculateTotalPrice(cart, 'regular');
+        const regularPrice = calculateTotalPrice(cart[user.id], 'regular');
         return regularPrice - totalPrice;
-    }, [cart, totalPrice]);
+    }, [cart, totalPrice, user.id]);
 
     return (
         <CartOverlayContainer>
@@ -74,7 +79,7 @@ export const CartOverlay = () => {
                     </Typography>
                 </CartHeader>
                 <CartItemsContainer>
-                    {cart.length > 0 ? (
+                    {cart[user.id] && cart[user.id].length > 0 ? (
                         <CartItemList />
                     ) : (
                         <Typography variant="h4">Cart is empty!</Typography>
@@ -101,7 +106,7 @@ export const CartOverlay = () => {
                             </CartSavedPrice>
                         </CartPriceContainer>
                     </CartFooterPriceContainer>
-                    {cart.length > 0 && (
+                    {cart[user.id] && cart[user.id].length > 0 && (
                         <CartFooterButtonsContainer>
                             <CartCheckoutButton onClick={goToCheckout}>
                                 checkout
