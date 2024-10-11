@@ -11,39 +11,43 @@ import {
 import { EditOutlined } from '@mui/icons-material';
 import useModalStore from '../../../../stores/useModal.store';
 import { OrderDetailsModal } from './components/OrderDetailsModal';
+import { memo, useMemo } from 'react';
 
-export const OrdersTable = () => {
+const NonMemoOrdersTable = () => {
     const { orders, isOrdersLoaded: isLoaded } = useAdminStore(state => state);
     const { rows, columns, hiddenFields }: ITableHook = useTable(orders);
     const { setOrderId, setIsModalOpened } = useModalStore(state => state);
 
-    const columnsWithActions: GridColDef[] = [
-        ...columns,
-        {
-            field: 'actions',
-            type: 'actions',
-            headerName: 'Actions',
-            width: 100,
-            cellClassName: 'actions',
-            getActions: ({ id }: GridRowParams) => {
-                const handleClick = () => {
-                    setOrderId(+id);
-                    setIsModalOpened(true);
-                };
+    const columnsWithActions: GridColDef[] = useMemo(
+        () => [
+            ...columns,
+            {
+                field: 'actions',
+                type: 'actions',
+                headerName: 'Actions',
+                width: 100,
+                cellClassName: 'actions',
+                getActions: ({ id }: GridRowParams) => {
+                    const handleClick = () => {
+                        setOrderId(+id);
+                        setIsModalOpened(true);
+                    };
 
-                return [
-                    <GridActionsCellItem
-                        key={id}
-                        icon={<EditOutlined />}
-                        label="Edit"
-                        className="textPrimary"
-                        onClick={handleClick}
-                        color="inherit"
-                    />,
-                ];
+                    return [
+                        <GridActionsCellItem
+                            key={id}
+                            icon={<EditOutlined />}
+                            label="Edit"
+                            className="textPrimary"
+                            onClick={handleClick}
+                            color="inherit"
+                        />,
+                    ];
+                },
             },
-        },
-    ];
+        ],
+        [columns]
+    );
 
     return (
         <>
@@ -71,3 +75,5 @@ export const OrdersTable = () => {
         </>
     );
 };
+
+export const OrdersTable = memo(NonMemoOrdersTable);

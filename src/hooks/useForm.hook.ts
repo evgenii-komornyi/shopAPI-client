@@ -29,7 +29,7 @@ import useDeliveryStore from '../stores/useDelivery.store';
 export const useForm = (isCheckoutForm: boolean): IFormHookReturns => {
     const { cart, clearCart } = useCartStore(state => state);
     const { user } = useUserStore(state => state);
-    const { registerUser, message } = useAuthStore(state => state);
+    const { registerUser } = useAuthStore(state => state);
     const {
         price: deliveryPrice,
         country: deliveryCountry,
@@ -177,10 +177,6 @@ export const useForm = (isCheckoutForm: boolean): IFormHookReturns => {
         };
 
         registerUser(userRequest);
-
-        if (message) {
-            navigate('/register-complete');
-        }
     };
 
     const controlProps = (item: string): IControlProps => ({

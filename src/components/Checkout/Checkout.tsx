@@ -30,7 +30,7 @@ export const Checkout = () => {
     useEffect(() => {
         // if (cart[user.id].length === 0) navigate('/');
         getUserById();
-    }, [cart, navigate, getUserById, user.id]);
+    }, [cart, user.id]);
 
     return (
         <Grid container spacing={5} sx={{ mt: 4 }}>

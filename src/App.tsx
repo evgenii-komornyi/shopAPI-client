@@ -27,7 +27,7 @@ export const App = () => {
         if (cart[0].length !== 0 && user.id !== 0) {
             mergeCarts(user.id);
         }
-    }, [cart, mergeCarts, user]);
+    }, [cart, user]);
 
     return (
         <ThemeProvider theme={darkTheme}>

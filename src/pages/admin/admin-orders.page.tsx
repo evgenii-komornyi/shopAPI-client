@@ -7,7 +7,7 @@ export const AdminOrdersPage = () => {
 
     useEffect(() => {
         getStatusesAndOrders();
-    }, [getStatusesAndOrders]);
+    }, []);
 
     return <OrdersTable />;
 };

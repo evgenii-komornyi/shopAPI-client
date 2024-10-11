@@ -4,7 +4,7 @@ import useUserStore from '../stores/useUser.store';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
-let intervalId: number, timeoutId: number;
+let intervalId: NodeJS.Timeout, timeoutId: NodeJS.Timeout;
 
 export const ProfilePage = () => {
     const navigate = useNavigate();
@@ -28,7 +28,7 @@ export const ProfilePage = () => {
             intervalId && clearInterval(intervalId);
             timeoutId && clearTimeout(timeoutId);
         };
-    }, [navigate, getUserById, isLoaded]);
+    }, [isLoaded]);
 
     return (
         <Container maxWidth="lg">

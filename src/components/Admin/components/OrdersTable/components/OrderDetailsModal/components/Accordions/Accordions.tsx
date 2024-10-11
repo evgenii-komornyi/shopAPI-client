@@ -1,7 +1,8 @@
 import { Accordion } from './components/Accordion/Accordion';
-import { Typography } from '@mui/material';
-import useAdminStore from '../../../../../../../../stores/useAdmin.store';
-import { SelectInput } from '../../../SelectInput';
+import { OrderInfo } from './components/Accordion/components/OrderInfo';
+import { AddressInfo } from './components/Accordion/components/AddressInfo';
+import { ClientInfo } from './components/Accordion/components/ClientInfo';
+import { ItemsInfo } from './components/Accordion/components/ItemsInfo';
 
 interface IProps {
     editMode: boolean;
@@ -14,52 +15,28 @@ export const Accordions = ({
     currentStatus,
     setCurrentStatus,
 }: IProps) => {
-    const { order } = useAdminStore(state => state);
-
     return (
         <>
             <Accordion
                 title="Order Info"
-                defaultExpanded={true}
+                defaultExpanded
                 panelNumber={1}
+                needInfoIcon
             >
-                <Typography>
-                    Order Date: {new Date(order?.orderDate ?? '').toUTCString()}
-                </Typography>
-
-                {!editMode ? (
-                    <Typography>Order Status: {order?.orderStatus}</Typography>
-                ) : (
-                    <SelectInput
-                        currentStatus={currentStatus}
-                        setCurrentStatus={setCurrentStatus}
-                    />
-                )}
-                <Typography>Total Price</Typography>
-                <Typography>Delivery Price</Typography>
-                <Typography>Delivery Type</Typography>
-                <Typography>Delivery Comment</Typography>
+                <OrderInfo
+                    editMode={editMode}
+                    currentStatus={currentStatus}
+                    setCurrentStatus={setCurrentStatus}
+                />
             </Accordion>
-            <Accordion title="Address" panelNumber={2}>
-                <Typography>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Suspendisse malesuada lacus ex, sit amet blandit leo
-                    lobortis eget.
-                </Typography>
+            <Accordion title="Address" panelNumber={2} needInfoIcon>
+                <AddressInfo />
             </Accordion>
-            <Accordion title="Client Info" panelNumber={3}>
-                <Typography>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Suspendisse malesuada lacus ex, sit amet blandit leo
-                    lobortis eget.
-                </Typography>
+            <Accordion title="Client Info" panelNumber={3} needInfoIcon>
+                <ClientInfo />
             </Accordion>
-            <Accordion title="Items" panelNumber={4}>
-                <Typography>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Suspendisse malesuada lacus ex, sit amet blandit leo
-                    lobortis eget.
-                </Typography>
+            <Accordion title="Items" panelNumber={4} needInfoIcon>
+                <ItemsInfo />
             </Accordion>
         </>
     );

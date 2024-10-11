@@ -10,7 +10,7 @@ import useSnackbarStore from '../../../../stores/useSnackbar.store';
 import { SnackBar } from '../../../SnackBar';
 import { Box, Typography } from '@mui/material';
 
-let timeout: number;
+let timeout: NodeJS.Timeout;
 
 export const EmailVerification = () => {
     const { emailToken }: Readonly<Params<string>> = useParams();

@@ -38,12 +38,14 @@ export const useUpdateAddressForm = (): IHookReturn => {
     } = useUserStore(state => state);
 
     useEffect(() => {
-        setInputs({
-            country: address.country,
-            city: address.city,
-            postalCode: address.postalCode,
-            address: address.address,
-        });
+        if (address) {
+            setInputs({
+                country: address.country,
+                city: address.city,
+                postalCode: address.postalCode,
+                address: address.address,
+            });
+        }
     }, [address]);
 
     const toggleFieldsDisability = () => {

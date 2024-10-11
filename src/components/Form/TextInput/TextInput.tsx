@@ -84,7 +84,7 @@ const InputText = ({
                 observer.disconnect();
             };
         }
-    }, [name, onBlurHandler]);
+    }, [name]);
 
     const renderInput = () => (
         <FormControl fullWidth={isFullWidth}>

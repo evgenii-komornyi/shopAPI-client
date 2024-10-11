@@ -9,11 +9,11 @@ export const RegisterCompletionPage = () => {
     const [timer, setTimer] = useState<number>(10);
 
     useEffect(() => {
-        const intervalId = setInterval(() => {
+        const intervalId: NodeJS.Timeout = setInterval(() => {
             setTimer(prev => (prev <= 0 ? 0 : prev - 1));
         }, 1000);
 
-        const timeoutId = setTimeout(() => {
+        const timeoutId: NodeJS.Timeout = setTimeout(() => {
             navigate('/');
             clearMessage();
         }, 10000);
@@ -22,7 +22,7 @@ export const RegisterCompletionPage = () => {
             clearInterval(intervalId);
             clearTimeout(timeoutId);
         };
-    }, [navigate, clearMessage]);
+    }, []);
 
     return (
         <Container maxWidth="lg">

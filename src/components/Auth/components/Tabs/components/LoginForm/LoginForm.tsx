@@ -48,7 +48,7 @@ export const LoginForm = () => {
                 createCartByUserId(user.id);
             }
         }
-    }, [user.id, navigate, setUserIdOnAuth, cart, createCartByUserId]);
+    }, [user.id, cart]);
 
     const handleKeyDown = ({ key }: KeyboardEvent<HTMLDivElement>): void => {
         if (key === 'Enter') {

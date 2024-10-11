@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import useModalStore from '../../../../../../stores/useModal.store';
 import { Close, Edit, EditOutlined } from '@mui/icons-material';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import useAdminStore from '../../../../../../stores/useAdmin.store';
 import { Accordions } from './components/Accordions/Accordions';
 
@@ -45,8 +45,9 @@ export const OrderDetailsModal = () => {
 
         return () => {
             setOrderId(null);
+            getStatusesAndOrders();
         };
-    }, [orderId, getOrderById, setOrderId, order]);
+    }, [orderId, order]);
 
     const [isEditMode, setIsEditMode] = useState<boolean>(false);
 
@@ -54,7 +55,12 @@ export const OrderDetailsModal = () => {
         setIsEditMode(prevState => !prevState);
     };
 
-    const handleSaveChanges = () => {
+    const handleClose = useCallback(() => {
+        setIsModalOpened(false);
+        setIsEditMode(false);
+    }, [setIsModalOpened]);
+
+    const handleSaveChanges = useCallback(() => {
         const statusByValue = statuses.find(
             ({ status }) => status === currentStatus
         );
@@ -66,12 +72,15 @@ export const OrderDetailsModal = () => {
             reset();
             setIsEditMode(false);
         }
-    };
-
-    const handleClose = () => {
-        setIsModalOpened(false);
-        setIsEditMode(false);
-    };
+    }, [
+        currentStatus,
+        getStatusesAndOrders,
+        handleClose,
+        order,
+        reset,
+        statuses,
+        updateOrderStatus,
+    ]);
 
     return (
         <Dialog
