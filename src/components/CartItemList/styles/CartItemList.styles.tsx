@@ -24,8 +24,10 @@ export const CartItemInfoContainer = styled.div`
 `;
 
 export const CartItemNameSexText = styled(Typography)`
-    font-size: 12px !important;
-    text-align: center !important;
+    && {
+        font-size: 12px;
+        text-align: center;
+    }
 `;
 
 export const CartItemImagePriceButtonsContainer = styled.div`
@@ -59,14 +61,18 @@ export const CartItemPriceContainer = styled.div`
 `;
 
 export const CartItemRegularPrice = styled(Typography)`
-    text-align: center !important;
-    margin-bottom: 10px !important;
-    text-decoration: line-through !important;
-    font-weight: bold !important;
+    && {
+        text-align: center;
+        margin-bottom: 10px;
+        text-decoration: line-through;
+        font-weight: bold;
+    }
 `;
 
 export const CartItemActualPrice = styled(Typography)`
-    text-align: center !important;
+    && {
+        text-align: center;
+    }
 `;
 
 export const CartItemQuantityContainer = styled.div`
