@@ -11,13 +11,13 @@ import {
     updateOrderStatus,
 } from '../api/admin.api';
 import { getCookie } from '../helpers/cookie.helper';
-import { OrdersResponse } from '../interfaces/entities/responses/admin/order/OrdersResponse';
-import { StatusesResponse } from '../interfaces/entities/responses/admin/status/StatusesResponse';
+import { OrderByIdResponse } from '../interfaces/entities/responses/admin/order/OrderByIdResponse';
+import { OrderByIdDetailsDTO } from '../interfaces/entities/dto/admin/order/OrderByIdDetailsDTO';
 
 interface IAdminState {
     statuses: StatusDetailsDTO[];
     orders: AdminOrderDetailsDTO[];
-    order?: AdminOrderDetailsDTO;
+    order?: OrderByIdDetailsDTO;
     validationErrors: string[];
     databaseErrors: string[];
     errorCode: number;
@@ -42,41 +42,35 @@ const useAdminStore = create<IAdminState>()(
         isOrderLoaded: false,
 
         getStatusesAndOrders: async (): Promise<void> => {
+            const token: string = getCookie('token');
+
             try {
-                const statusesResponse: AxiosResponse<StatusesResponse> =
-                    await getAdminOrdersStatuses(getCookie('token'));
+                const [statusesResponse, ordersResponse] = await Promise.all([
+                    getAdminOrdersStatuses(token),
+                    getAdminOrders(token),
+                ]);
 
-                if (statusesResponse) {
-                    const {
-                        data: { data },
-                    } = statusesResponse;
-
-                    if (data.databaseErrors) {
-                        set({ databaseErrors: data.databaseErrors });
-                    } else {
-                        set({ statuses: data.statuses });
-                    }
+                const {
+                    data: { data: statusesData },
+                } = statusesResponse;
+                if (statusesData.databaseErrors) {
+                    set({ databaseErrors: statusesData.databaseErrors });
                 }
 
-                const ordersResponse: AxiosResponse<OrdersResponse> =
-                    await getAdminOrders(getCookie('token'));
-
-                if (ordersResponse) {
-                    const {
-                        data: { data },
-                    } = ordersResponse;
-
-                    if (data.databaseErrors) {
-                        set({ databaseErrors: data.databaseErrors });
-                    } else {
-                        set({ orders: data.orders });
-                    }
+                const {
+                    data: { data: ordersData },
+                } = ordersResponse;
+                if (ordersData.databaseErrors) {
+                    set({ databaseErrors: ordersData.databaseErrors });
                 }
 
-                set({ isOrdersLoaded: true });
+                set({
+                    statuses: statusesData.statuses,
+                    orders: ordersData.orders,
+                    isOrdersLoaded: true,
+                });
             } catch (error: unknown) {
                 const axiosError: AxiosError = error as AxiosError;
-
                 console.error(axiosError.response?.status);
 
                 set({
@@ -138,10 +132,11 @@ const useAdminStore = create<IAdminState>()(
 
         getOrderById: async (orderId: number): Promise<void> => {
             try {
-                const response = await getAdminOrderById({
-                    orderId,
-                    token: getCookie('token'),
-                });
+                const response: AxiosResponse<OrderByIdResponse> =
+                    await getAdminOrderById({
+                        orderId,
+                        token: getCookie('token'),
+                    });
 
                 if (response) {
                     set({ order: response.data.data.order });

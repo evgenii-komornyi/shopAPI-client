@@ -11,7 +11,7 @@ import { AdminHeader } from '../components/Admin/components/Header';
 
 export const AdminPage = () => {
     const { user: authUser } = useAuthStore(state => state);
-    const { getStatusesAndOrders, errorCode } = useAdminStore(state => state);
+    const { errorCode } = useAdminStore(state => state);
     const { setSnackbarMessage, setIsSnackbarOpened } = useSnackbarStore(
         state => state
     );
@@ -20,8 +20,6 @@ export const AdminPage = () => {
     useEffect(() => {
         if (!authUser.roles.includes('ADMIN')) {
             navigate('/');
-        } else {
-            getStatusesAndOrders();
         }
     }, [authUser.roles]);
 

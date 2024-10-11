@@ -17,7 +17,7 @@ export const LoggedInUsersOrder = () => {
 
     useEffect(() => {
         void getOrder(orderId ? +orderId : 0);
-    }, [getOrder, orderId]);
+    }, [orderId]);
 
     return (
         <Grid container spacing={4}>

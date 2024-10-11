@@ -20,7 +20,7 @@ export const useTable = <T extends object>(dataArray: T[]): ITableHook => {
         {}
     );
 
-    const formatHeader = (key: string): string => {
+    const formatHeader = useCallback((key: string): string => {
         let formattedKey = key;
 
         if (key === 'id') {
@@ -32,7 +32,7 @@ export const useTable = <T extends object>(dataArray: T[]): ITableHook => {
         }
 
         return `${formattedKey[0].toUpperCase()}${formattedKey.slice(1)}`;
-    };
+    }, []);
 
     const { statuses } = useAdminStore(state => state);
 
@@ -76,28 +76,28 @@ export const useTable = <T extends object>(dataArray: T[]): ITableHook => {
         if (dataArray.length > 0) {
             const objectKeys: string[] = Object.keys(dataArray[0]);
 
-            const keysToColumns: GridColDef[] = [];
+            const keysToColumns: GridColDef[] = objectKeys.map(key => ({
+                field: key,
+                headerName: formatHeader(key),
+                width: key === 'id' ? 50 : 200,
+                ...getField(key),
+            }));
 
+            const newHiddenFields: GridColumnVisibilityModel = {};
             objectKeys.forEach(key => {
-                keysToColumns.push({
-                    field: key,
-                    headerName: formatHeader(key),
-                    width: key === 'id' ? 50 : 200,
-                    ...getField(key),
-                });
-
                 if (HIDDEN_FIELDS.includes(key)) {
-                    setHiddenFields(prevState => ({
-                        ...prevState,
-                        [key]: false,
-                    }));
+                    newHiddenFields[key] = false;
                 }
             });
 
+            setHiddenFields(prevState => ({
+                ...prevState,
+                ...newHiddenFields,
+            }));
             setColumns(keysToColumns);
             setRows(dataArray);
         }
-    }, [dataArray, getField]);
+    }, [dataArray]);
 
     return { rows, columns, hiddenFields };
 };

@@ -19,13 +19,28 @@ export const SelectInput = ({ currentStatus, setCurrentStatus }: IProps) => {
             label="Status"
             onChange={handleChange}
             size="small"
-            sx={{ height: 1 }}
             native
-            autoFocus
+            sx={{
+                '& .MuiOutlinedInput-notchedOutline': {
+                    borderColor: 'rgba(255,255,255, .5)',
+                },
+                '&:focus .MuiOutlinedInput-notchedOutline': {
+                    borderColor: 'rgba(255,255,255, .2)',
+                },
+                '&:hover .MuiOutlinedInput-notchedOutline': {
+                    borderColor: 'rgba(255,255,255, .2)',
+                },
+                '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                    borderColor: 'transparent',
+                },
+                '&.MuiSelect-select:focus': {
+                    backgroundColor: 'rgba(255,255,255, .2)',
+                },
+            }}
         >
             {statuses.map(({ id, status }) => (
                 <option key={id} value={status}>
-                    {id} {status}
+                    {status}
                 </option>
             ))}
         </Select>

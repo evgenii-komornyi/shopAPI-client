@@ -4,6 +4,7 @@ import { StatusesResponse } from '../interfaces/entities/responses/admin/status/
 import { OrdersResponse } from '../interfaces/entities/responses/admin/order/OrdersResponse';
 import { OrderStatusUpdateRequest } from '../interfaces/entities/requests/admin/order/OrderStatusUpdateRequest';
 import { OrderStatusUpdateResponse } from '../interfaces/entities/responses/admin/order/OrderStatusUpdateResponse';
+import { OrderByIdResponse } from '../interfaces/entities/responses/admin/order/OrderByIdResponse';
 
 const {
     VITE_HOST_URL,
@@ -46,7 +47,7 @@ export const getAdminOrders = (
 export const getAdminOrderById = (orderRequest: {
     orderId: number;
     token: string;
-}) =>
+}): Promise<AxiosResponse<OrderByIdResponse>> =>
     axios.get(
         `${VITE_HOST_URL}:${VITE_HOST_PORT}/${VITE_ADMIN_API_URL}/${VITE_ADMIN_ORDERS_API_URL}/${orderRequest.orderId}`,
         {
