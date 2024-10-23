@@ -5,6 +5,7 @@ import { IOrderInfo } from '../interfaces/entities/IOrderInfo.interface';
 import { IOrderRequest } from '../interfaces/entities/requests/order/IOrderRequest';
 import { OrderResponse } from '../interfaces/entities/responses/order/OrderResponse';
 import { getCookie } from '../helpers/cookie.helper';
+import { OrdersResponse } from '../interfaces/entities/responses/admin/order/OrdersResponse';
 
 const {
     VITE_HOST_URL,
@@ -43,10 +44,25 @@ export const createSecuredOrder = (
     );
 
 export const getOrderByUserId = (
-    orderId: number
+    orderId: number,
+    hasFullInformation: boolean
 ): Promise<AxiosResponse<OrderResponse>> =>
     axios.get(
         `${VITE_HOST_URL}:${VITE_HOST_PORT}/${VITE_SECURE_ORDERS_API_URL}/${orderId}`,
+        {
+            params: { hasFullInformation },
+            withCredentials: true,
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${getCookie('token')}`,
+            },
+            signal: newAbortSignal(5000),
+        }
+    );
+
+export const getOrders = (): Promise<AxiosResponse<OrdersResponse>> =>
+    axios.get(
+        `${VITE_HOST_URL}:${VITE_HOST_PORT}/${VITE_SECURE_ORDERS_API_URL}`,
         {
             withCredentials: true,
             headers: {

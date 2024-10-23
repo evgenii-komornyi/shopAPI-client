@@ -3,20 +3,26 @@ import { devtools } from 'zustand/middleware';
 import { AxiosResponse } from 'axios';
 import { handleError } from '../helpers/api.helper';
 
-import { getOrderByUserId } from '../api/orders.api';
+import { getOrderByUserId, getOrders } from '../api/orders.api';
 import { OrderDetailsDTO } from '../interfaces/entities/dto/order/OrderDetailsDTO';
 import { ClientDetailsDTO } from '../interfaces/entities/dto/client/ClientDetailsDTO';
 import { AddressDetailsDTO } from '../interfaces/entities/dto/address/AddressDetailsDTO';
 import { OrderResponse } from '../interfaces/entities/responses/order/OrderResponse';
+import { OrdersResponse } from '../interfaces/entities/responses/admin/order/OrdersResponse';
+import { UserOrderDTO } from '../interfaces/entities/dto/order/UserOrderDTO';
 
 interface IOrderState {
+    orders: UserOrderDTO[];
     order: OrderDetailsDTO;
     status: string;
     validationErrors: string[];
     databaseErrors: string[];
     isLoaded: boolean;
+    isOrderLoaded: boolean;
 
-    getOrder: (orderId: number) => Promise<void>;
+    getOrders: () => Promise<void>;
+    getOrder: (orderId: number, hasFullInformation: boolean) => Promise<void>;
+    resetSelectedOrder: () => void;
 }
 
 const initialAddress: AddressDetailsDTO = {
@@ -50,16 +56,49 @@ const initialOrder: OrderDetailsDTO = {
 
 const useOrderStore = create<IOrderState>()(
     devtools(set => ({
+        orders: [],
         order: initialOrder,
         status: '',
         validationErrors: [],
         databaseErrors: [],
         isLoaded: false,
+        isOrderLoaded: false,
 
-        getOrder: async (orderId: number) => {
+        getOrders: async () => {
+            try {
+                const response: AxiosResponse<OrdersResponse> =
+                    await getOrders();
+
+                if (response) {
+                    const { data } = response.data;
+
+                    if (data.status === 'Success') {
+                        set({ orders: data.orders });
+                    } else {
+                        if (data.validationErrors) {
+                            set({
+                                validationErrors: data.validationErrors,
+                            });
+                        }
+
+                        if (data.databaseErrors) {
+                            set({
+                                databaseErrors: data.databaseErrors,
+                            });
+                        }
+                    }
+                    set({ isLoaded: true, status: data.status });
+                }
+            } catch (error) {
+                handleError(error as Error);
+            }
+        },
+
+        getOrder: async (orderId: number, hasFullInformation: boolean) => {
+            set({ isOrderLoaded: false });
             try {
                 const response: AxiosResponse<OrderResponse> =
-                    await getOrderByUserId(orderId);
+                    await getOrderByUserId(orderId, hasFullInformation);
 
                 if (response) {
                     const { data } = response.data;
@@ -79,11 +118,15 @@ const useOrderStore = create<IOrderState>()(
                             });
                         }
                     }
-                    set({ isLoaded: true, status: data.status });
+                    set({ isOrderLoaded: true, status: data.status });
                 }
             } catch (error) {
                 handleError(error as Error);
             }
+        },
+
+        resetSelectedOrder: () => {
+            set({ order: initialOrder, isOrderLoaded: false });
         },
     }))
 );

@@ -102,7 +102,7 @@ export const UserBar = () => {
                     </ListItemIcon>
                     Profile
                 </MenuItem>
-                <MenuItem onClick={() => goTo(`/orders/${user.client.id}`)}>
+                <MenuItem onClick={() => goTo(`/orders`)}>
                     <ListItemIcon>
                         <ShoppingBagOutlined fontSize="small" />
                     </ListItemIcon>

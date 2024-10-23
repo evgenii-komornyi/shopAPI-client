@@ -16,7 +16,7 @@ export const LoggedInUsersOrder = () => {
     const { orderId }: Readonly<Params<string>> = useParams();
 
     useEffect(() => {
-        void getOrder(orderId ? +orderId : 0);
+        void getOrder(orderId ? +orderId : 0, false);
     }, [orderId]);
 
     return (

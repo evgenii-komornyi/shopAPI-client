@@ -1,16 +1,18 @@
-import { Box } from '@mui/material';
 import { Fragment } from 'react/jsx-runtime';
-import useAdminStore from '../../../../../../../../../../../../stores/useAdmin.store';
+
 import { Item } from './components/Item';
 import {
     ItemContainer,
     ItemHeader,
     ItemWrapper,
-} from '../../../../styles/Accordions.styles';
+} from '../Admin/components/OrdersTable/components/OrderDetailsModal/components/Accordions/styles/Accordions.styles';
+import { IOrderItem } from '../../interfaces/entities/IOrderItem.interface';
 
-export const ItemsInfo = () => {
-    const orderItems = useAdminStore(state => state.order?.orderItems);
+interface IProps {
+    orderItems?: IOrderItem[];
+}
 
+export const ItemsInfo = ({ orderItems }: IProps) => {
     return (
         <ItemWrapper>
             <ItemHeader>

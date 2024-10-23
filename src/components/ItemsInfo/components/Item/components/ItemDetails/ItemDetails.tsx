@@ -5,12 +5,12 @@ import {
     ItemImage,
     ItemRow,
     TextContainer,
-} from '../../../../../../../../styles/Accordions.styles';
-import { IOrderItem } from '../../../../../../../../../../../../../../../../interfaces/entities/IOrderItem.interface';
+} from '../../../../../Admin/components/OrdersTable/components/OrderDetailsModal/components/Accordions/styles/Accordions.styles';
+import { IOrderItem } from '../../../../../../interfaces/entities/IOrderItem.interface';
 import { ReactElement } from 'react';
-import { formatPrice } from '../../../../../../../../../../../../../../../../helpers/price.helper';
+import { formatPrice } from '../../../../../../helpers/price.helper';
 import { Chip, Tooltip, Typography } from '@mui/material';
-import { capitalizeFirstLetterOfEachWordInString } from '../../../../../../../../../../../../../../../../helpers/string.helper';
+import { capitalizeFirstLetterOfEachWordInString } from '../../../../../../helpers/string.helper';
 
 const { VITE_HOST_URL, VITE_HOST_PORT, VITE_IMAGES_URL, VITE_FISH_IMAGES_URL } =
     import.meta.env;

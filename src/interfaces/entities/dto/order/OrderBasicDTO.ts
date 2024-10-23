@@ -8,4 +8,5 @@ export interface OrderBasicDTO {
     deliveryType: string;
     uOrderId: string;
     orderItems: IOrderItem[];
+    totalPrice?: number;
 }
