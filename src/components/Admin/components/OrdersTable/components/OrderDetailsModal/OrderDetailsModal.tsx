@@ -38,16 +38,20 @@ export const OrderDetailsModal = () => {
         if (orderId) {
             getOrderById(orderId);
         }
+    }, [orderId]);
 
+    useEffect(() => {
         if (order) {
             setCurrentStatus(order.orderStatus);
         }
+    }, [order]);
 
+    useEffect(() => {
         return () => {
             setOrderId(null);
             getStatusesAndOrders();
         };
-    }, [orderId, order]);
+    }, []);
 
     const [isEditMode, setIsEditMode] = useState<boolean>(false);
 

@@ -1,4 +1,4 @@
-import { IOrderItem } from '../../../../../../../../../../../../../../interfaces/entities/IOrderItem.interface';
+import { IOrderItem } from '../../../../interfaces/entities/IOrderItem.interface';
 import { ItemDetails } from './components/ItemDetails';
 
 interface IProps {

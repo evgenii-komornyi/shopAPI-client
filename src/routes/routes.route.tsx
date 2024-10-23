@@ -32,7 +32,7 @@ const mainRoutes: IRoute[] = [
     { path: '/collection/:typeName', page: <CategoryDetailsPage /> },
     { path: '/collection/:typeName/item/:itemId', page: <ItemDetailsPage /> },
     { path: '/checkout', page: <CheckoutPage /> },
-    { path: '/orders/:clientId', page: <OrdersPage /> },
+    { path: '/orders', page: <OrdersPage /> },
     { path: '/profile', page: <ProfilePage /> },
     { path: '/register-complete', page: <RegisterCompletionPage /> },
     { path: '/verify_email/:emailToken', page: <VerificationPage /> },

@@ -1,18 +1,19 @@
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
-import { StatusDetailsDTO } from '../interfaces/entities/dto/admin/status/StatusDetailsDTO';
+
 import { AdminOrderDetailsDTO } from '../interfaces/entities/dto/admin/order/AdminOrderDetailsDTO';
 import { AxiosError, AxiosResponse } from 'axios';
+import { getCookie } from '../helpers/cookie.helper';
+import { OrderByIdDetailsDTO } from '../interfaces/entities/dto/admin/order/OrderByIdDetailsDTO';
+import { OrderByIdResponse } from '../interfaces/entities/responses/admin/order/OrderByIdResponse';
 import { OrderStatusUpdateResponse } from '../interfaces/entities/responses/admin/order/OrderStatusUpdateResponse';
+import { StatusDetailsDTO } from '../interfaces/entities/dto/admin/status/StatusDetailsDTO';
 import {
     getAdminOrderById,
     getAdminOrders,
     getAdminOrdersStatuses,
     updateOrderStatus,
 } from '../api/admin.api';
-import { getCookie } from '../helpers/cookie.helper';
-import { OrderByIdResponse } from '../interfaces/entities/responses/admin/order/OrderByIdResponse';
-import { OrderByIdDetailsDTO } from '../interfaces/entities/dto/admin/order/OrderByIdDetailsDTO';
 
 interface IAdminState {
     statuses: StatusDetailsDTO[];

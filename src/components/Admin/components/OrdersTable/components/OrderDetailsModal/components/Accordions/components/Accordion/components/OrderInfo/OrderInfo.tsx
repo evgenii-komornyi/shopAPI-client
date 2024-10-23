@@ -1,6 +1,5 @@
 import { Box, Chip, Typography } from '@mui/material';
 import {
-    OrderStatusContainer,
     PropertyContainer,
     WrapperContainer,
 } from '../../../../styles/Accordions.styles';
@@ -20,6 +19,9 @@ export const OrderInfo = ({
     setCurrentStatus,
 }: IProps) => {
     const { order } = useAdminStore(state => state);
+    const deliveryComment = order?.deliveryComment;
+
+    const hasComment = Boolean(deliveryComment?.trim());
 
     return (
         <WrapperContainer>
@@ -75,7 +77,7 @@ export const OrderInfo = ({
             <PropertyContainer>
                 <Typography>Delivery Comment:</Typography>
                 <Chip
-                    label={order?.deliveryComment ?? 'No comments'}
+                    label={hasComment ? deliveryComment : 'No comments'}
                     variant="outlined"
                     color={order?.deliveryComment ? 'default' : 'success'}
                 />
