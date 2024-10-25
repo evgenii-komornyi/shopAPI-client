@@ -1,22 +1,14 @@
 import { Link } from 'react-router-dom';
-import {
-    Card,
-    CardContent,
-    CardMedia,
-    IconButton,
-    Skeleton,
-    Typography,
-} from '@mui/material';
+import { Card, CardContent, CardMedia, Skeleton, Typography } from '@mui/material';
 
 import useCategoriesStore from '../../../../stores/useCategories.store';
 
 import { ICategory } from '../../../../interfaces/ICategory.interface';
+import { ItemContainer } from '../../styles/Categories.styles';
 
 interface IProps {
     item: ICategory;
 }
-
-import { ItemContainer } from '../../styles/Categories.styles';
 
 const {
     VITE_HOST_URL,
