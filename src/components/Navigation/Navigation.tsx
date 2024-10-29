@@ -24,7 +24,7 @@ import { useAnchor } from '../../hooks/useAnchor.hook';
 import { menuItems } from '../../data/menu';
 
 import { StyledNavLink } from './styles/Navigation.styles';
-import { Auth } from '../Navigation/components/Auth/Auth';
+import { Auth } from './components/Auth';
 
 export const Navigation = () => {
     const { anchor, handleOpen, handleClose } = useAnchor();

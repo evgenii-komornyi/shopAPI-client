@@ -3,7 +3,6 @@ import { Navigation } from '../Navigation';
 
 import { HeaderContainer } from './styles/Header.styles';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
-import { SetMealTwoTone } from '@mui/icons-material';
 
 export const Header = () => {
     const navigate: NavigateFunction = useNavigate();
