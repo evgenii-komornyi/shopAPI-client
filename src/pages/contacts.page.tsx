@@ -1,9 +1,10 @@
 import { Container } from '@mui/material';
+import { Contacts } from '../components/Contacts';
 
 export const ContactsPage = () => {
     return (
         <Container maxWidth="lg">
-            <h1>ContactsPage</h1>
+            <Contacts />
         </Container>
     );
 };
