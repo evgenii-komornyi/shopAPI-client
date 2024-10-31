@@ -1,9 +1,10 @@
 import { Container } from '@mui/material';
+import { AboutUs } from '../components/AboutUs';
 
 export const AboutUsPage = () => {
     return (
         <Container maxWidth="lg">
-            <h1>AboutUsPage</h1>
+            <AboutUs />
         </Container>
     );
 };
