@@ -4,6 +4,6 @@ const countryIndices: Record<string, number> = {
     Lithuania: 2,
 };
 
-export const countryIndex = (country: string): number => {
-    return countryIndices[country] ?? -1;
+export const countryIndex = (country: string | undefined): number => {
+    return country ? countryIndices[country] : -1;
 };

@@ -58,9 +58,11 @@ export const TotalPriceContainer = styled.div`
 `;
 
 export const TotalPriceText = styled(Typography)`
-    text-transform: uppercase !important;
-    letter-spacing: 5px !important;
-    font-weight: bold !important;
+    && {
+        text-transform: uppercase;
+        letter-spacing: 5px;
+        font-weight: bold;
+    }
 `;
 
 export const TotalPrice = styled(Typography)``;

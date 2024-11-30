@@ -20,11 +20,6 @@ export const OrderNumberText = styled.h3`
     letter-spacing: 4px;
 `;
 
-export const TotalPriceText = styled.h5`
-    font-size: 28px;
-    letter-spacing: 4px;
-`;
-
 export const OrderItemsContainer = styled.div`
     display: flex;
     flex: 1;

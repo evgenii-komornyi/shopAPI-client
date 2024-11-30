@@ -49,22 +49,27 @@ export const removeItemFromCart = (
 
 export const calculateTotalPrice = (
     cartItems: ICartItem[],
-    priceType: string
+    priceType: string,
+    deliveryPrice = 0
 ): number =>
-    priceType === 'regular'
-        ? cartItems.reduce(
-              (total, item) => total + item.regularPrice * item.quantity,
-              0
-          )
-        : cartItems.reduce(
-              (total, item) => total + item.actualPrice * item.quantity,
-              0
-          );
+    cartItems
+        ? priceType === 'regular'
+            ? cartItems.reduce(
+                  (total, item) => total + item.regularPrice * item.quantity,
+                  0
+              )
+            : cartItems.reduce(
+                  (total, item) => total + item.actualPrice * item.quantity,
+                  0
+              ) + deliveryPrice
+        : 0;
 
 export const calculateItemsCount = (items: ICartItem[]): number =>
-    items.reduce(
-        (accumulatedCount, item) => accumulatedCount + item.quantity,
-        0
-    );
+    items
+        ? items.reduce(
+              (accumulatedCount, item) => accumulatedCount + item.quantity,
+              0
+          )
+        : 0;
 
 export const formatPrice = (price: number): string => price.toFixed(2);

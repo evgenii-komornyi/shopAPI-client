@@ -1,0 +1,1 @@
+export { ItemsInfo } from './ItemsInfo';

@@ -9,17 +9,19 @@ import { useToggleDrawer } from '../../../../hooks/useToggleDrawer.hook';
 import useCartStore from '../../../../stores/useCart.store';
 
 import { CartContainer, StyledBadge } from '../../styles/CartIcon.styles';
+import useUserStore from '../../../../stores/useUser.store';
 
 export const CartIcon = () => {
     const { isCartOverlayOpened, toggleDrawer } = useToggleDrawer();
 
     const { cart } = useCartStore(state => state);
+    const { user } = useUserStore(state => state);
 
     return (
         <>
             <IconButton aria-label="cart" onClick={toggleDrawer}>
                 <StyledBadge
-                    badgeContent={calculateItemsCount(cart)}
+                    badgeContent={calculateItemsCount(cart[user.id])}
                     color="secondary"
                 >
                     <ShoppingCart />

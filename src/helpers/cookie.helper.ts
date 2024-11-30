@@ -1,14 +1,12 @@
 export const setCookie = (
     cookieName: string,
     cookieValue: string,
-    expiresDays: number
+    expiresIn: number
 ): void => {
     const expiresDate = new Date();
-    expiresDate.setTime(
-        expiresDate.getTime() + expiresDays * 24 * 60 * 60 * 1000
-    );
+    expiresDate.setTime(expiresDate.getTime() + expiresIn);
 
-    document.cookie = `${cookieName}=${cookieValue};expires=${expiresDate.toUTCString()};path=/`;
+    document.cookie = `${cookieName}=${encodeURIComponent(cookieValue)};expires=${expiresDate.toUTCString()};path=/`;
 };
 
 export const getCookie = (cookieName: string): string => {
@@ -23,4 +21,8 @@ export const getCookie = (cookieName: string): string => {
     }
 
     return '';
+};
+
+export const removeCookie = (cookieName: string): void => {
+    setCookie(cookieName, '', 1);
 };

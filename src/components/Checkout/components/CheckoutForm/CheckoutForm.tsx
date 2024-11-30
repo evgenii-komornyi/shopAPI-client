@@ -3,17 +3,16 @@ import { Box, Typography } from '@mui/material';
 
 import { formData } from '../../../../data/form-data';
 
-import { useCheckout } from '../../../../hooks/useCheckout.hook';
-
 import { DeliveryType } from '../../../../enums/DeliveryTypes.enum';
 
 import {
     FormContainer,
     InputGroupContainer,
     BuyButton,
-} from '../../styles/CheckoutForm.styles';
+} from '../../../Form/styles/Form.styles';
 
-import { ConditionalInput } from './components/ConditionalInput/ConditionalInput';
+import { ConditionalInput } from '../../../Form/ConditionalInput/ConditionalInput';
+import { useForm } from '../../../../hooks/useForm.hook';
 
 export const CheckoutForm = () => {
     const {
@@ -24,7 +23,7 @@ export const CheckoutForm = () => {
         onChangeHandler,
         onBlurHandler,
         isButtonDisabled,
-    } = useCheckout();
+    } = useForm(formData.checkout.some(item => item.title === 'Delivery'));
 
     return (
         <FormContainer>

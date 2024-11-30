@@ -51,7 +51,9 @@ export const CheckoutItemNameSexContainer = styled.div`
 `;
 
 export const CheckoutItemNameSexText = styled(Typography)`
-    font-size: 12px !important;
+    && {
+        font-size: 12px;
+    }
 `;
 
 export const CheckoutItemActualPriceContainer = styled.div`
@@ -63,7 +65,9 @@ export const CheckoutItemActualPriceContainer = styled.div`
 `;
 
 export const CheckoutItemActualPrice = styled(Typography)`
-    font-size: 16px !important;
-    font-weight: bold !important;
-    text-align: center !important;
+    && {
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+    }
 `;

@@ -1,46 +1,115 @@
 import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
 import { addItemToCart, removeItemFromCart } from '../helpers/cart.helper';
-import { ICartItem } from '../interfaces/ICartItem.interface';
 import { IItem } from '../interfaces/IItem.interface';
+import { Cart } from '../types/Cart.type';
 
 interface ICartState {
-    cart: ICartItem[];
+    cart: Cart;
 
-    addItem: (itemToAdd: IItem) => void;
-    removeItem: (itemToRemove: IItem) => void;
-    removeWholeItem: (itemIdToRemove: number) => void;
-    clearCart: () => void;
+    createCartByUserId: (userId: number) => void;
+    mergeCarts: (userId: number) => void;
+    addItem: (itemToAdd: IItem, userId: number) => void;
+    removeItem: (itemToRemove: IItem, userId: number) => void;
+    removeWholeItem: (itemIdToRemove: number, userId: number) => void;
+    clearCart: (userId: number) => void;
 }
 
 const useCartStore = create<ICartState>()(
     devtools(
         persist(
             set => ({
-                cart: [],
+                cart: { 0: [] },
 
-                addItem: (itemToAdd: IItem) => {
+                createCartByUserId: (userId: number): void => {
+                    set(state => ({ cart: { ...state.cart, [userId]: [] } }));
+                },
+
+                mergeCarts: (userId: number): void => {
+                    set(state => {
+                        const cart0Items = state.cart[0] || [];
+                        const userCartItems = state.cart[userId] || [];
+
+                        const userCartMap = new Map(
+                            userCartItems.map(item => [item.itemId, item])
+                        );
+
+                        const mergedCartItems = cart0Items.map(cart0Item => {
+                            const existingItem = userCartMap.get(
+                                cart0Item.itemId
+                            );
+
+                            if (existingItem) {
+                                return {
+                                    ...existingItem,
+                                    quantity:
+                                        existingItem.quantity +
+                                        cart0Item.quantity,
+                                };
+                            }
+
+                            return cart0Item;
+                        });
+
+                        const finalCartItems = [
+                            ...userCartItems.filter(
+                                item =>
+                                    !cart0Items.find(
+                                        cart0Item =>
+                                            cart0Item.itemId === item.itemId
+                                    )
+                            ),
+                            ...mergedCartItems,
+                        ];
+
+                        return {
+                            cart: {
+                                ...state.cart,
+                                [userId]: finalCartItems,
+                                0: [],
+                            },
+                        };
+                    });
+                },
+
+                addItem: (itemToAdd: IItem, userId: number) => {
                     set(state => ({
-                        cart: addItemToCart(state.cart, itemToAdd),
+                        cart: {
+                            ...state.cart,
+                            [userId]: addItemToCart(
+                                state.cart[userId] || [],
+                                itemToAdd
+                            ),
+                        },
                     }));
                 },
 
-                removeItem: (itemToRemove: IItem) => {
+                removeItem: (itemToRemove: IItem, userId: number) => {
                     set(state => ({
-                        cart: removeItemFromCart(state.cart, itemToRemove),
+                        cart: {
+                            ...state.cart,
+
+                            [userId]: removeItemFromCart(
+                                state.cart[userId] || [],
+                                itemToRemove
+                            ),
+                        },
                     }));
                 },
 
-                removeWholeItem: itemIdToRemove => {
+                removeWholeItem: (itemIdToRemove: number, userId: number) => {
                     set(state => ({
-                        cart: state.cart.filter(
-                            cartItem => cartItem.itemId !== itemIdToRemove
-                        ),
+                        cart: {
+                            ...state.cart,
+                            [userId]: state.cart[userId].filter(
+                                cartItem => cartItem.itemId !== itemIdToRemove
+                            ),
+                        },
                     }));
                 },
 
-                clearCart: () => {
-                    set({ cart: [] });
+                clearCart: (userId: number) => {
+                    set(state => ({ cart: { ...state.cart, [userId]: [] } }));
                 },
             }),
             { name: 'cart' }
